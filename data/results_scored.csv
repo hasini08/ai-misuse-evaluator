@@ -1,0 +1,5 @@
+name,model_size,energy_kwh,purpose,creative_displacement,ethical_risk,responsibility_score
+Medical_Diagnosis_Model,1500,3.0,healthcare,1,1,7.666666666666667
+Chatbot_Memes,2000,15.0,entertainment,4,3,0.3333333333333333
+Image_Generator,1200,7.5,art,5,4,1.5
+Code_Assistant,1800,10.0,productivity,3,2,3.3333333333333335
