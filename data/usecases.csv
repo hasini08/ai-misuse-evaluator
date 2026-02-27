@@ -1,0 +1,9 @@
+use_case_name,emissions_kgco2e,purpose_category,ethical_risk_score,creative_displacement_score,model_size
+Medical_Triage_Assistant,0.004,essential,1,1,1500
+Accessibility_Captioning,0.003,essential,1,2,900
+Study_Tutor_Chatbot,0.006,beneficial,2,2,1200
+Code_Assistant,0.008,beneficial,2,2,1800
+Customer_Support_Bot,0.007,beneficial,2,1,700
+Meme_Chatbot,0.010,low_benefit,3,5,2000
+AI_Art_Generator,0.012,low_benefit,4,4,1600
+Deepfake_Voice_Tool,0.011,harmful,5,3,1400

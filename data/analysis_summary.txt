@@ -1,0 +1,37 @@
+=== Advanced Analysis Summary ===
+Number of use cases: 8
+
+Top 3 use cases (overall score):
+  - Medical_Triage_Assistant: 95.56 (High)
+  - Accessibility_Captioning: 95.0 (High)
+  - Customer_Support_Bot: 72.97 (High)
+
+Bottom 3 use cases (overall score):
+  - Meme_Chatbot: 27.39 (Low)
+  - AI_Art_Generator: 17.25 (Low)
+  - Deepfake_Voice_Tool: 15.94 (Low)
+
+Component summary (mean ± std):
+  - component_emissions: mean=48.61, std=36.10
+  - component_ethics: mean=62.50, std=35.36
+  - component_creativity: mean=62.50, std=35.36
+  - component_purpose: mean=66.25, std=32.49
+
+Score driver breakdown (best and worst cases):
+  Best case: Medical_Triage_Assistant
+    strongest component: component_ethics=100.00
+    weakest component:   component_emissions=88.89
+  Worst case: Deepfake_Voice_Tool
+    strongest component: component_creativity=50.00
+    weakest component:   component_ethics=0.00
+
+Correlation with Justifiability Score (Pearson):
+  - emissions_kgco2e: -0.975
+  - ethical_risk_score: -0.953
+  - creative_displacement_score: -0.815
+
+Scores by purpose_category:
+  - beneficial: n=3, mean=69.64, min=63.53, max=72.97
+  - essential: n=2, mean=95.28, min=95.00, max=95.56
+  - harmful: n=1, mean=15.94, min=15.94, max=15.94
+  - low_benefit: n=2, mean=22.32, min=17.25, max=27.39

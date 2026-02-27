@@ -1,5 +1,9 @@
-name,model_size,energy_kwh,purpose,creative_displacement,ethical_risk,responsibility_score
-Medical_Diagnosis_Model,1500,3.0,healthcare,1,1,7.666666666666667
-Chatbot_Memes,2000,15.0,entertainment,4,3,0.3333333333333333
-Image_Generator,1200,7.5,art,5,4,1.5
-Code_Assistant,1800,10.0,productivity,3,2,3.3333333333333335
+use_case_name,emissions_kgco2e,purpose_category,ethical_risk_score,creative_displacement_score,model_size,emissions_norm,ethics_norm,creativity_norm,purpose_norm,justifiability_score,label,component_emissions,component_ethics,component_creativity,component_purpose
+Medical_Triage_Assistant,0.004,essential,1,1,1500,0.8888888888888888,1.0,1.0,1.0,95.56,High,88.89,100.0,100.0,100.0
+Accessibility_Captioning,0.003,essential,1,2,900,1.0,1.0,0.75,1.0,95.0,High,100.0,100.0,75.0,100.0
+Study_Tutor_Chatbot,0.006,beneficial,2,2,1200,0.6666666666666667,0.75,0.75,0.8,72.42,High,66.67,75.0,75.0,80.0
+Code_Assistant,0.008,beneficial,2,2,1800,0.44444444444444453,0.75,0.75,0.8,63.53,Medium,44.44,75.0,75.0,80.0
+Customer_Support_Bot,0.007,beneficial,2,1,700,0.5555555555555556,0.75,1.0,0.8,72.97,High,55.56,75.0,100.0,80.0
+Meme_Chatbot,0.01,low_benefit,3,5,2000,0.22222222222222232,0.5,0.0,0.4,27.39,Low,22.22,50.0,0.0,40.0
+AI_Art_Generator,0.012,low_benefit,4,4,1600,0.0,0.25,0.25,0.4,17.25,Low,0.0,25.0,25.0,40.0
+Deepfake_Voice_Tool,0.011,harmful,5,3,1400,0.11111111111111116,0.0,0.5,0.1,15.94,Low,11.11,0.0,50.0,10.0

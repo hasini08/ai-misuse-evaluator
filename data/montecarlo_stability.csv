@@ -1,0 +1,3 @@
+use_case_name,win_count,win_rate
+Medical_Triage_Assistant,145,0.725
+Accessibility_Captioning,55,0.275
