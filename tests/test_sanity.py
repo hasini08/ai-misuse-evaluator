@@ -1,5 +1,9 @@
+import sys
+import os
+sys.path.append(os.path.abspath("src"))
+
 import pandas as pd
-from src.scoring_engine import compute_scores
+from scoring_engine import compute_scores
 
 def test_essential_scores_higher_than_harmful():
     df = pd.DataFrame([

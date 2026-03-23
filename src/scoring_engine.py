@@ -5,7 +5,7 @@ PURPOSE_WEIGHTS = {
     "essential": 1.0,
     "beneficial": 0.8,
     "low_benefit": 0.4,
-    "harmful": 0.1,
+    "harmful": 0.0,
 }
 
 def minmax(series: pd.Series, invert: bool = False) -> pd.Series:
@@ -20,10 +20,10 @@ def minmax(series: pd.Series, invert: bool = False) -> pd.Series:
 
 def compute_scores(
     df: pd.DataFrame,
-    w_emissions: float = 0.40,
-    w_ethics: float = 0.25,
-    w_creativity: float = 0.20,
-    w_purpose: float = 0.15,
+    w_emissions: float = 0.30,
+    w_ethics: float = 0.30,
+    w_creativity: float = 0.15,
+    w_purpose: float = 0.25,
 ) -> pd.DataFrame:
     """
     Returns df with:

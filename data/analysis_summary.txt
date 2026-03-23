@@ -1,37 +1,60 @@
 === Advanced Analysis Summary ===
-Number of use cases: 8
+Number of use cases: 40
 
 Top 3 use cases (overall score):
-  - Medical_Triage_Assistant: 95.56 (High)
-  - Accessibility_Captioning: 95.0 (High)
-  - Customer_Support_Bot: 72.97 (High)
+  - Accessibility_Captioning: 100.0 (High)
+  - Medical_Triage_Assistant: 99.94 (High)
+  - Earthquake_Early_Warning: 99.88 (High)
 
 Bottom 3 use cases (overall score):
-  - Meme_Chatbot: 27.39 (Low)
-  - AI_Art_Generator: 17.25 (Low)
-  - Deepfake_Voice_Tool: 15.94 (Low)
+  - Deepfake_Voice_Tool: 37.02 (Low)
+  - Nonconsensual_Deepfake_Generator: 28.97 (Low)
+  - High_Emission_Novelty_Chatbot: 28.75 (Low)
 
 Component summary (mean ± std):
-  - component_emissions: mean=48.61, std=36.10
-  - component_ethics: mean=62.50, std=35.36
-  - component_creativity: mean=62.50, std=35.36
-  - component_purpose: mean=66.25, std=32.49
+  - component_emissions: mean=96.49, std=15.66
+  - component_ethics: mean=55.62, std=34.20
+  - component_creativity: mean=71.88, std=35.89
+  - component_purpose: mean=61.00, std=35.93
+
+Component importance (mean contribution):
+  - component_emissions: 96.49
+  - component_ethics: 55.62
+  - component_creativity: 71.88
+  - component_purpose: 61.00
 
 Score driver breakdown (best and worst cases):
-  Best case: Medical_Triage_Assistant
-    strongest component: component_ethics=100.00
-    weakest component:   component_emissions=88.89
-  Worst case: Deepfake_Voice_Tool
-    strongest component: component_creativity=50.00
-    weakest component:   component_ethics=0.00
+  Best case: Accessibility_Captioning
+    strongest component: component_emissions=100.00
+    weakest component:   component_emissions=100.00
+  Worst case: High_Emission_Novelty_Chatbot
+    strongest component: component_ethics=50.00
+    weakest component:   component_emissions=0.00
 
 Correlation with Justifiability Score (Pearson):
-  - emissions_kgco2e: -0.975
-  - ethical_risk_score: -0.953
-  - creative_displacement_score: -0.815
+  - emissions_kgco2e: -0.344
+  - ethical_risk_score: -0.852
+  - creative_displacement_score: -0.587
 
 Scores by purpose_category:
-  - beneficial: n=3, mean=69.64, min=63.53, max=72.97
-  - essential: n=2, mean=95.28, min=95.00, max=95.56
-  - harmful: n=1, mean=15.94, min=15.94, max=15.94
-  - low_benefit: n=2, mean=22.32, min=17.25, max=27.39
+  - beneficial: n=13, mean=80.94, min=64.70, max=87.44
+  - essential: n=10, mean=96.43, min=88.51, max=100.00
+  - harmful: n=7, mean=39.65, min=28.97, max=44.58
+  - low_benefit: n=10, mean=57.27, min=28.75, max=69.70
+
+Pareto-optimal solutions: 1/40
+Top Pareto cases:
+  - Accessibility_Captioning: 100.0
+
+Sensitivity analysis (weight variation):
+  - rank stability (Spearman): min=0.993, max=0.993
+  - most disruptive setting: w_emissions=0.2 (stability=0.993)
+
+Monte Carlo weight robustness:
+  - most frequent top-ranked case: Accessibility_Captioning (win_rate=0.94)
+  - Top 5 winners:
+    * Accessibility_Captioning: win_rate=0.94
+    * Medical_Triage_Assistant: win_rate=0.06
+
+Baseline comparison (equal weights vs default):
+  - rank correlation (Spearman via ranks): 0.992

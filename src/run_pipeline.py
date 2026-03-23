@@ -25,24 +25,42 @@ def rank_stability(df_base: pd.DataFrame, df_alt: pd.DataFrame) -> float:
     base_rank = merged["justifiability_score_base"].rank(method="average")
     alt_rank = merged["justifiability_score_alt"].rank(method="average")
 
-    # Pearson correlation of ranks = Spearman
     return float(base_rank.corr(alt_rank))
 
 
-def advanced_analysis(scored: pd.DataFrame,
-                      sensitivity: pd.DataFrame | None = None,
-                      montecarlo: pd.DataFrame | None = None) -> str:
+def baseline_comparison(df_raw: pd.DataFrame, scored_default: pd.DataFrame) -> float:
     """
-    Produces a detailed text report suitable for dissertation evidence.
-    Includes: top/bottom cases, component breakdown stats, correlations,
-    category analysis, Pareto summary, sensitivity robustness, Monte Carlo stability.
+    Compare default scoring vs an equal-weight baseline using rank correlation.
     """
-    lines = []
+    baseline = compute_scores(
+        df_raw,
+        w_emissions=0.25,
+        w_ethics=0.25,
+        w_creativity=0.25,
+        w_purpose=0.25
+    )
+    corr = baseline["justifiability_score"].rank().corr(
+        scored_default["justifiability_score"].rank()
+    )
+    return float(corr)
+
+
+def advanced_analysis(
+    scored: pd.DataFrame,
+    df_raw: pd.DataFrame | None = None,
+    sensitivity: pd.DataFrame | None = None,
+    montecarlo: pd.DataFrame | None = None
+) -> str:
+    """
+    Detailed text report suitable for dissertation evidence.
+    Includes: top/bottom cases, component stats, correlations, category breakdown,
+    Pareto summary, sensitivity robustness, Monte Carlo stability, baseline comparison.
+    """
+    lines: list[str] = []
     lines.append("=== Advanced Analysis Summary ===")
     lines.append(f"Number of use cases: {len(scored)}")
     lines.append("")
 
-    # Sort once
     srt = scored.sort_values("justifiability_score", ascending=False)
 
     # Top/bottom
@@ -56,7 +74,7 @@ def advanced_analysis(scored: pd.DataFrame,
         lines.append(f"  - {r['use_case_name']}: {r['justifiability_score']} ({r.get('label','')})")
     lines.append("")
 
-    # Component statistics (if available)
+    # Component statistics + importance
     component_cols = [
         "component_emissions",
         "component_ethics",
@@ -64,21 +82,26 @@ def advanced_analysis(scored: pd.DataFrame,
         "component_purpose",
     ]
     available_components = [c for c in component_cols if c in scored.columns]
+
     if available_components:
         lines.append("Component summary (mean ± std):")
         for c in available_components:
             lines.append(f"  - {c}: mean={scored[c].mean():.2f}, std={scored[c].std():.2f}")
         lines.append("")
 
-        # “Drivers” for top and bottom example
-        top_row = srt.iloc[0]
-        bottom_row = srt.iloc[-1]
+        lines.append("Component importance (mean contribution):")
+        for c in available_components:
+            lines.append(f"  - {c}: {scored[c].mean():.2f}")
+        lines.append("")
 
         def driver_text(row):
             comps = {c: float(row[c]) for c in available_components}
             strongest = max(comps, key=comps.get)
             weakest = min(comps, key=comps.get)
             return strongest, weakest, comps
+
+        top_row = srt.iloc[0]
+        bottom_row = srt.iloc[-1]
 
         t_strong, t_weak, t_comps = driver_text(top_row)
         b_strong, b_weak, b_comps = driver_text(bottom_row)
@@ -92,7 +115,7 @@ def advanced_analysis(scored: pd.DataFrame,
         lines.append(f"    weakest component:   {b_weak}={b_comps[b_weak]:.2f}")
         lines.append("")
 
-    # Correlation analysis (Pearson)
+    # Correlations (Pearson)
     corr_cols = [
         "emissions_kgco2e",
         "ethical_risk_score",
@@ -126,14 +149,13 @@ def advanced_analysis(scored: pd.DataFrame,
             lines.append(f"  - {r['use_case_name']}: {r['justifiability_score']}")
         lines.append("")
 
-    # Sensitivity analysis summary (if provided)
+    # Sensitivity summary
     if sensitivity is not None and len(sensitivity) > 0:
         lines.append("Sensitivity analysis (weight variation):")
-        best_stability = sensitivity["rank_stability_spearman"].max()
-        worst_stability = sensitivity["rank_stability_spearman"].min()
+        best_stability = float(sensitivity["rank_stability_spearman"].max())
+        worst_stability = float(sensitivity["rank_stability_spearman"].min())
         lines.append(f"  - rank stability (Spearman): min={worst_stability:.3f}, max={best_stability:.3f}")
 
-        # Identify most disruptive weight setting
         disruptive = sensitivity.sort_values("rank_stability_spearman").iloc[0]
         lines.append(
             f"  - most disruptive setting: w_emissions={disruptive['w_emissions']} "
@@ -141,7 +163,7 @@ def advanced_analysis(scored: pd.DataFrame,
         )
         lines.append("")
 
-    # Monte Carlo stability (if provided)
+    # Monte Carlo summary
     if montecarlo is not None and len(montecarlo) > 0:
         lines.append("Monte Carlo weight robustness:")
         top_winner = montecarlo.sort_values("win_rate", ascending=False).iloc[0]
@@ -154,6 +176,13 @@ def advanced_analysis(scored: pd.DataFrame,
             lines.append(f"    * {r['use_case_name']}: win_rate={r['win_rate']}")
         lines.append("")
 
+    # Baseline comparison (equal weights)
+    if df_raw is not None:
+        base_corr = baseline_comparison(df_raw, scored)
+        lines.append("Baseline comparison (equal weights vs default):")
+        lines.append(f"  - rank correlation (Spearman via ranks): {base_corr:.3f}")
+        lines.append("")
+
     return "\n".join(lines)
 
 
@@ -162,12 +191,11 @@ def run_sensitivity(df: pd.DataFrame) -> pd.DataFrame:
     Vary emissions weight and re-balance other weights.
     Report mean score + rank stability vs baseline.
     """
-    base = compute_scores(df)  # default weights
+    base = compute_scores(df)
     results = []
 
     for w_em in [0.20, 0.30, 0.40, 0.50, 0.60]:
         remaining = 1.0 - w_em
-        # default proportions for others (ethics=0.25, creativity=0.20, purpose=0.15 -> sum=0.60)
         w_eth = remaining * (0.25 / 0.60)
         w_cre = remaining * (0.20 / 0.60)
         w_pur = remaining * (0.15 / 0.60)
@@ -196,8 +224,7 @@ def run_sensitivity(df: pd.DataFrame) -> pd.DataFrame:
 def pareto_frontier(scored: pd.DataFrame) -> pd.DataFrame:
     """
     Mark Pareto-optimal use cases (non-dominated).
-    We treat the component columns as objectives to maximise.
-    Requires: component_emissions, component_ethics, component_creativity, component_purpose.
+    Maximises component columns: emissions/ethics/creativity/purpose.
     """
     required = ["component_emissions", "component_ethics", "component_creativity", "component_purpose"]
     for c in required:
@@ -210,16 +237,12 @@ def pareto_frontier(scored: pd.DataFrame) -> pd.DataFrame:
     for i in range(data.shape[0]):
         if not is_pareto[i]:
             continue
-        # A point is dominated if another point is >= in all objectives and > in at least one
-        dominated_by_any = np.any(
-            np.all(data >= data[i], axis=1) & np.any(data > data[i], axis=1)
-        )
-        # dominated_by_any will always be True because it includes itself; so ignore itself:
-        dominated_by_any = np.any(
+        # dominated if another point >= in all and > in at least one
+        dominated = np.any(
             (np.all(data >= data[i], axis=1) & np.any(data > data[i], axis=1))
             & (np.arange(data.shape[0]) != i)
         )
-        is_pareto[i] = not dominated_by_any
+        is_pareto[i] = not dominated
 
     out = scored.copy()
     out["pareto_optimal"] = is_pareto
@@ -229,7 +252,6 @@ def pareto_frontier(scored: pd.DataFrame) -> pd.DataFrame:
 def monte_carlo_weight_stability(df: pd.DataFrame, iterations: int = 200) -> pd.DataFrame:
     """
     Randomly sample weights (Dirichlet) and record top-ranked use case frequency.
-    Higher concentration = more robust ranking.
     """
     winners = []
 
@@ -270,19 +292,13 @@ def main():
 
     os.makedirs("data", exist_ok=True)
 
-    # ----------------------
     # Load dataset
-    # ----------------------
     df = pd.read_csv(args.input)
 
-    # ----------------------
     # Core scoring
-    # ----------------------
     scored = compute_scores(df)
 
-    # ----------------------
     # Optional Pareto analysis
-    # ----------------------
     if args.pareto:
         scored = pareto_frontier(scored)
         scored.to_csv(PARETO_CSV, index=False)
@@ -293,14 +309,9 @@ def main():
 
     print("\n✅ Pipeline complete")
     print("Output:", args.output)
-    print(
-        scored[["use_case_name", "justifiability_score", "label"]]
-        .sort_values("justifiability_score", ascending=False)
-    )
+    print(scored[["use_case_name", "justifiability_score", "label"]].sort_values("justifiability_score", ascending=False))
 
-    # ----------------------
     # Optional Sensitivity
-    # ----------------------
     sens_df = None
     if args.sensitivity:
         sens_df = run_sensitivity(df)
@@ -308,9 +319,7 @@ def main():
         print(f"\n✅ Sensitivity results written to {SENS_CSV}")
         print(sens_df)
 
-    # ----------------------
     # Optional Monte Carlo
-    # ----------------------
     mc_df = None
     if args.montecarlo:
         mc_df = monte_carlo_weight_stability(df, iterations=args.mc_iters)
@@ -318,20 +327,16 @@ def main():
         print(f"\n✅ Monte Carlo stability written to {MC_CSV}")
         print(mc_df.head(10))
 
-    # ----------------------
     # Advanced Analysis Report
-    # ----------------------
     if args.analyze:
-        report = advanced_analysis(
-            scored,
-            sensitivity=sens_df,
-            montecarlo=mc_df
-        )
-
+        report = advanced_analysis(scored, df_raw=df, sensitivity=sens_df, montecarlo=mc_df)
         with open(ANALYSIS_TXT, "w", encoding="utf-8") as f:
             f.write(report)
-
         print(f"\n✅ Advanced analysis written to {ANALYSIS_TXT}")
+
+        # also print baseline correlation to console (nice for meetings)
+        base_corr = baseline_comparison(df, scored)
+        print(f"\nBaseline vs Default Rank Correlation: {base_corr:.3f}")
 
 
 if __name__ == "__main__":
