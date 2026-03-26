@@ -2,11 +2,12 @@
 Unit tests for scoring_engine.py
 Run with: pytest tests/
 """
-import pytest
-import pandas as pd
-import numpy as np
-import sys
 import os
+import sys
+
+import numpy as np
+import pandas as pd
+import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 from scoring_engine import compute_scores, minmax, PURPOSE_WEIGHTS
@@ -50,7 +51,10 @@ class TestOutputStructure:
         scored = compute_scores(df)
         for col in ["justifiability_score", "label",
                     "component_emissions", "component_ethics",
-                    "component_creativity", "component_purpose"]:
+                    "component_creativity", "component_purpose",
+                    "base_score", "guardrail_multiplier",
+                    "contribution_emissions", "contribution_ethics",
+                    "contribution_creativity", "contribution_purpose"]:
             assert col in scored.columns, f"Missing column: {col}"
 
     def test_label_values_are_valid(self):
@@ -209,6 +213,26 @@ class TestEdgeCases:
         scored = compute_scores(df)
         assert len(scored) == 100
         assert scored["justifiability_score"].between(0, 100).all()
+
+    def test_negative_emissions_raises(self):
+        df = pd.DataFrame([make_row(emissions=-0.001)])
+        with pytest.raises(ValueError, match="non-negative"):
+            compute_scores(df)
+
+    def test_out_of_range_ethics_raises(self):
+        df = pd.DataFrame([make_row(ethics=6)])
+        with pytest.raises(ValueError, match="within 1-5"):
+            compute_scores(df)
+
+    def test_harmful_cases_receive_guardrail_penalty(self):
+        df = pd.DataFrame([
+            make_row(name="Helpful", purpose="essential", ethics=1, creativity=1, emissions=0.01),
+            make_row(name="Harmful", purpose="harmful", ethics=5, creativity=1, emissions=0.001),
+        ])
+        scored = compute_scores(df).set_index("use_case_name")
+        assert float(scored.loc["Helpful", "guardrail_multiplier"]) == pytest.approx(1.0)
+        assert float(scored.loc["Harmful", "guardrail_multiplier"]) < 1.0
+        assert float(scored.loc["Harmful", "justifiability_score"]) < float(scored.loc["Harmful", "base_score"])
 
 
 # ── minmax helper ─────────────────────────────────────────────────────────────

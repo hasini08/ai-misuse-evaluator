@@ -1,6 +1,7 @@
 import os
-import pandas as pd
+
 import matplotlib.pyplot as plt
+import pandas as pd
 
 
 RESULTS = "data/results_scored.csv"
@@ -25,7 +26,7 @@ def plot_scores_top_bottom(df: pd.DataFrame, n: int = 10):
     plt.title(f"Top {n} and Bottom {n} AI Use Cases by Justifiability Score")
     plt.tight_layout()
     plt.savefig("figures/score_top_bottom.png", dpi=200)
-    plt.show()
+    plt.close()
 
 
 def plot_score_distribution(df: pd.DataFrame):
@@ -36,7 +37,7 @@ def plot_score_distribution(df: pd.DataFrame):
     plt.title("Distribution of Justifiability Scores")
     plt.tight_layout()
     plt.savefig("figures/score_distribution.png", dpi=200)
-    plt.show()
+    plt.close()
 
 
 def plot_correlation_matrix(df: pd.DataFrame):
@@ -51,7 +52,7 @@ def plot_correlation_matrix(df: pd.DataFrame):
     plt.title("Correlation Matrix")
     plt.tight_layout()
     plt.savefig("figures/correlation_matrix.png", dpi=200)
-    plt.show()
+    plt.close()
 
 
 def plot_sensitivity():
@@ -65,7 +66,7 @@ def plot_sensitivity():
     plt.title("Sensitivity Analysis: Emissions Weight vs Mean Score")
     plt.tight_layout()
     plt.savefig("figures/sensitivity_weights.png", dpi=200)
-    plt.show()
+    plt.close()
 
 
 def plot_pareto(scored: pd.DataFrame):
@@ -84,7 +85,7 @@ def plot_pareto(scored: pd.DataFrame):
     plt.legend()
     plt.tight_layout()
     plt.savefig("figures/pareto_emissions_vs_ethics.png", dpi=200)
-    plt.show()
+    plt.close()
 
 
 def plot_montecarlo():
@@ -98,7 +99,7 @@ def plot_montecarlo():
     plt.title("Monte Carlo Robustness: Top 10 Most Frequent Winners")
     plt.tight_layout()
     plt.savefig("figures/montecarlo_top10.png", dpi=200)
-    plt.show()
+    plt.close()
 
 
 def main():

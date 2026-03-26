@@ -67,6 +67,13 @@ A weighted aggregation produces the final score:
 
 `Justifiability Score = 100 * weighted_sum(components)`
 
+Emissions are normalised with clipped log scaling rather than plain min-max
+so that one extreme outlier does not flatten all realistic use cases.
+
+The pipeline also applies a guardrail penalty to clearly harmful, high-risk
+systems. This makes the model less compensatory: low emissions alone should
+not allow explicitly harmful applications to score well.
+
 Default weights:
 - emissions = 0.40
 - ethics = 0.25
@@ -79,20 +86,19 @@ Default weights:
 
 ```bash
 pip install -r requirements.txt
-
-
 python src/run_pipeline.py
 python src/run_pipeline.py --analyze --sensitivity --pareto --montecarlo
 cat data/analysis_summary.txt
 python src/visualise.py
 python -m pytest -q
+```
+## Repository Structure
 
-Repository Structure
-src/ — source code
-scoring_engine.py — scoring model
-run_pipeline.py — scoring + experiments + report generation
-visualise.py — figure generation
-emissions_measurement.py — CodeCarbon measurement demo
-data/ — dataset + generated outputs
-tests/ — pytest tests
-figures/ — generated plots
+- `src/` — source code
+- `src/scoring_engine.py` — scoring model
+- `src/run_pipeline.py` — scoring + experiments + report generation
+- `src/visualise.py` — figure generation
+- `src/emissions_measurement.py` — CodeCarbon measurement demo
+- `data/` — dataset + generated outputs
+- `tests/` — pytest tests
+- `figures/` — generated plots

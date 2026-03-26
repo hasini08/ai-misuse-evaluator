@@ -1,9 +1,10 @@
-import os
 import argparse
+import os
+
 import pandas as pd
 import numpy as np
 
-from scoring_engine import compute_scores
+from scoring_engine import DEFAULT_WEIGHTS, compute_scores
 
 INPUT = "data/usecases.csv"
 OUTPUT = "data/results_scored.csv"
@@ -75,27 +76,30 @@ def advanced_analysis(
     lines.append("")
 
     # Component statistics + importance
-    component_cols = [
-        "component_emissions",
-        "component_ethics",
-        "component_creativity",
-        "component_purpose",
+    component_cols = ["component_emissions", "component_ethics", "component_creativity", "component_purpose"]
+    contribution_cols = [
+        "contribution_emissions",
+        "contribution_ethics",
+        "contribution_creativity",
+        "contribution_purpose",
     ]
-    available_components = [c for c in component_cols if c in scored.columns]
+    available_components = [column for column in component_cols if column in scored.columns]
+    available_contributions = [column for column in contribution_cols if column in scored.columns]
 
     if available_components:
         lines.append("Component summary (mean ± std):")
-        for c in available_components:
-            lines.append(f"  - {c}: mean={scored[c].mean():.2f}, std={scored[c].std():.2f}")
+        for column in available_components:
+            lines.append(f"  - {column}: mean={scored[column].mean():.2f}, std={scored[column].std():.2f}")
         lines.append("")
 
-        lines.append("Component importance (mean contribution):")
-        for c in available_components:
-            lines.append(f"  - {c}: {scored[c].mean():.2f}")
+    if available_contributions:
+        lines.append("Weighted contribution summary (mean contribution to final score):")
+        for column in available_contributions:
+            lines.append(f"  - {column}: mean={scored[column].mean():.2f}")
         lines.append("")
 
         def driver_text(row):
-            comps = {c: float(row[c]) for c in available_components}
+            comps = {column: float(row[column]) for column in available_contributions}
             strongest = max(comps, key=comps.get)
             weakest = min(comps, key=comps.get)
             return strongest, weakest, comps
@@ -113,6 +117,18 @@ def advanced_analysis(
         lines.append(f"  Worst case: {bottom_row['use_case_name']}")
         lines.append(f"    strongest component: {b_strong}={b_comps[b_strong]:.2f}")
         lines.append(f"    weakest component:   {b_weak}={b_comps[b_weak]:.2f}")
+        lines.append("")
+
+    if {"base_score", "guardrail_multiplier", "justifiability_score"}.issubset(scored.columns):
+        guarded = scored[scored["guardrail_multiplier"] < 1.0].sort_values("justifiability_score")
+        lines.append("Guardrail penalty summary:")
+        lines.append(f"  - cases with penalties applied: {len(guarded)}")
+        if len(guarded) > 0:
+            for _, row in guarded.head(5).iterrows():
+                lines.append(
+                    f"  - {row['use_case_name']}: base={row['base_score']:.2f}, "
+                    f"multiplier={row['guardrail_multiplier']:.2f}, final={row['justifiability_score']:.2f}"
+                )
         lines.append("")
 
     # Correlations (Pearson)
@@ -194,11 +210,13 @@ def run_sensitivity(df: pd.DataFrame) -> pd.DataFrame:
     base = compute_scores(df)
     results = []
 
+    default_other = DEFAULT_WEIGHTS["ethics"] + DEFAULT_WEIGHTS["creativity"] + DEFAULT_WEIGHTS["purpose"]
+
     for w_em in [0.20, 0.30, 0.40, 0.50, 0.60]:
         remaining = 1.0 - w_em
-        w_eth = remaining * (0.25 / 0.60)
-        w_cre = remaining * (0.20 / 0.60)
-        w_pur = remaining * (0.15 / 0.60)
+        w_eth = remaining * (DEFAULT_WEIGHTS["ethics"] / default_other)
+        w_cre = remaining * (DEFAULT_WEIGHTS["creativity"] / default_other)
+        w_pur = remaining * (DEFAULT_WEIGHTS["purpose"] / default_other)
 
         alt = compute_scores(
             df,

@@ -3,58 +3,65 @@ Number of use cases: 40
 
 Top 3 use cases (overall score):
   - Accessibility_Captioning: 100.0 (High)
-  - Medical_Triage_Assistant: 99.94 (High)
-  - Earthquake_Early_Warning: 99.88 (High)
+  - Medical_Triage_Assistant: 96.72 (High)
+  - Earthquake_Early_Warning: 93.44 (High)
 
 Bottom 3 use cases (overall score):
-  - Deepfake_Voice_Tool: 37.02 (Low)
-  - Nonconsensual_Deepfake_Generator: 28.97 (Low)
-  - High_Emission_Novelty_Chatbot: 28.75 (Low)
+  - Deepfake_Voice_Tool: 10.01 (Low)
+  - Autonomous_Weapon_Targeting: 8.74 (Low)
+  - Nonconsensual_Deepfake_Generator: 0.0 (Low)
 
 Component summary (mean ± std):
-  - component_emissions: mean=96.49, std=15.66
+  - component_emissions: mean=57.34, std=24.64
   - component_ethics: mean=55.62, std=34.20
   - component_creativity: mean=71.88, std=35.89
   - component_purpose: mean=61.00, std=35.93
 
-Component importance (mean contribution):
-  - component_emissions: 96.49
-  - component_ethics: 55.62
-  - component_creativity: 71.88
-  - component_purpose: 61.00
+Weighted contribution summary (mean contribution to final score):
+  - contribution_emissions: mean=22.93
+  - contribution_ethics: mean=13.91
+  - contribution_creativity: mean=14.38
+  - contribution_purpose: mean=9.15
 
 Score driver breakdown (best and worst cases):
   Best case: Accessibility_Captioning
-    strongest component: component_emissions=100.00
-    weakest component:   component_emissions=100.00
-  Worst case: High_Emission_Novelty_Chatbot
-    strongest component: component_ethics=50.00
-    weakest component:   component_emissions=0.00
+    strongest component: contribution_emissions=40.00
+    weakest component:   contribution_purpose=15.00
+  Worst case: Nonconsensual_Deepfake_Generator
+    strongest component: contribution_emissions=0.00
+    weakest component:   contribution_emissions=0.00
+
+Guardrail penalty summary:
+  - cases with penalties applied: 7
+  - Nonconsensual_Deepfake_Generator: base=0.00, multiplier=0.42, final=0.00
+  - Autonomous_Weapon_Targeting: base=20.81, multiplier=0.42, final=8.74
+  - Deepfake_Voice_Tool: base=23.82, multiplier=0.42, final=10.01
+  - Voter_Suppression_AI: base=32.08, multiplier=0.42, final=13.48
+  - Misinformation_Bot: base=35.35, multiplier=0.42, final=14.85
 
 Correlation with Justifiability Score (Pearson):
-  - emissions_kgco2e: -0.344
-  - ethical_risk_score: -0.852
-  - creative_displacement_score: -0.587
+  - emissions_kgco2e: -0.225
+  - ethical_risk_score: -0.820
+  - creative_displacement_score: -0.575
 
 Scores by purpose_category:
-  - beneficial: n=13, mean=80.94, min=64.70, max=87.44
-  - essential: n=10, mean=96.43, min=88.51, max=100.00
-  - harmful: n=7, mean=39.65, min=28.97, max=44.58
-  - low_benefit: n=10, mean=57.27, min=28.75, max=69.70
+  - beneficial: n=13, mean=72.74, min=55.61, max=87.47
+  - essential: n=10, mean=86.51, min=75.64, max=100.00
+  - harmful: n=7, mean=11.27, min=0.00, max=16.22
+  - low_benefit: n=10, mean=41.61, min=23.50, max=62.41
 
 Pareto-optimal solutions: 1/40
 Top Pareto cases:
   - Accessibility_Captioning: 100.0
 
 Sensitivity analysis (weight variation):
-  - rank stability (Spearman): min=0.993, max=0.993
-  - most disruptive setting: w_emissions=0.2 (stability=0.993)
+  - rank stability (Spearman): min=0.968, max=1.000
+  - most disruptive setting: w_emissions=0.6 (stability=0.968)
 
 Monte Carlo weight robustness:
-  - most frequent top-ranked case: Accessibility_Captioning (win_rate=0.94)
+  - most frequent top-ranked case: Accessibility_Captioning (win_rate=1.0)
   - Top 5 winners:
-    * Accessibility_Captioning: win_rate=0.94
-    * Medical_Triage_Assistant: win_rate=0.06
+    * Accessibility_Captioning: win_rate=1.0
 
 Baseline comparison (equal weights vs default):
-  - rank correlation (Spearman via ranks): 0.992
+  - rank correlation (Spearman via ranks): 0.988
