@@ -552,31 +552,24 @@ function buildAnalysis(row) {
   return `${humanizeUseCaseName(row.use_case_name)} receives a Justifiability Score of ${row.justifiability_score}/100 and is labelled ${row.label}. The strongest supporting factors are ${strengths}. The main concerns are ${concerns}.${guardrailText} This result is derived from the dissertation scoring pipeline rather than an on-the-fly language model estimate.`;
 }
 
-async function evaluate() {
+function evaluate() {
   const input = document.getElementById('useCaseSelect').value;
   if (!input) { document.getElementById('useCaseSelect').focus(); return; }
 
-  // Hide everything, show loading
-  document.getElementById('inputCard').style.display = 'none';
-  document.getElementById('errorCard').classList.remove('active');
-  document.getElementById('results').classList.remove('active');
-  document.getElementById('loading').classList.add('active');
-
-  let stepIdx = 0;
-  showLoadingStep(0);
-  stepInterval = setInterval(() => { stepIdx++; showLoadingStep(stepIdx); }, 700);
-
   try {
+    document.getElementById('inputCard').style.display = 'none';
+    document.getElementById('errorCard').classList.remove('active');
+    document.getElementById('results').classList.remove('active');
+    document.getElementById('loading').classList.add('active');
+
     const parsed = USE_CASES.find(item => item.use_case_name === input);
     if (!parsed) {
       throw new Error("Selected use case not found in results_scored.json");
     }
 
-    clearInterval(stepInterval);
     renderResults(input, parsed);
 
   } catch(err) {
-    clearInterval(stepInterval);
     document.getElementById('loading').classList.remove('active');
     document.getElementById('inputCard').style.display = 'block';
     const errCard = document.getElementById('errorCard');
@@ -650,6 +643,7 @@ function setComp(name, score, desc) {
 }
 
 function reset() {
+  document.getElementById('loading').classList.remove('active');
   document.getElementById('results').classList.remove('active');
   document.getElementById('errorCard').classList.remove('active');
   document.getElementById('inputCard').style.display = 'block';
