@@ -2,7 +2,7 @@
 
 A modular Python framework for evaluating the **justifiability** of AI use cases using a multi-dimensional responsibility framework. The system integrates environmental impact, ethical risk, creative displacement, and purpose justification into a single **Justifiability Score (0–100)** with explainable component breakdown, robustness analysis, and quantitative evaluation outputs.
 
-> COMP3931 Individual Project — University of Leeds — 2024/25
+> COMP3931 Individual Project — University of Leeds — 2025/26
 
 ---
 

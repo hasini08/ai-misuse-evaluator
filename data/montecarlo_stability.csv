@@ -1,2 +1,3 @@
 use_case_name,win_count,win_rate
-Accessibility_Captioning,200,1.0
+Earthquake_Early_Warning,104,0.52
+Accessibility_Captioning,96,0.48

@@ -2,13 +2,13 @@
 Number of use cases: 40
 
 Top 3 use cases (overall score):
-  - Accessibility_Captioning: 100.0 (High)
-  - Medical_Triage_Assistant: 96.72 (High)
-  - Earthquake_Early_Warning: 93.44 (High)
+  - Accessibility_Captioning: 96.25 (High)
+  - Earthquake_Early_Warning: 94.26 (High)
+  - Wildfire_Spread_Predictor: 87.64 (High)
 
 Bottom 3 use cases (overall score):
-  - Deepfake_Voice_Tool: 10.01 (Low)
-  - Autonomous_Weapon_Targeting: 8.74 (Low)
+  - Deepfake_Voice_Tool: 8.23 (Low)
+  - Autonomous_Weapon_Targeting: 6.6 (Low)
   - Nonconsensual_Deepfake_Generator: 0.0 (Low)
 
 Component summary (mean ± std):
@@ -18,15 +18,15 @@ Component summary (mean ± std):
   - component_purpose: mean=61.00, std=35.93
 
 Weighted contribution summary (mean contribution to final score):
-  - contribution_emissions: mean=22.93
+  - contribution_emissions: mean=20.07
   - contribution_ethics: mean=13.91
-  - contribution_creativity: mean=14.38
-  - contribution_purpose: mean=9.15
+  - contribution_creativity: mean=10.78
+  - contribution_purpose: mean=6.10
 
 Score driver breakdown (best and worst cases):
   Best case: Accessibility_Captioning
-    strongest component: contribution_emissions=40.00
-    weakest component:   contribution_purpose=15.00
+    strongest component: contribution_emissions=35.00
+    weakest component:   contribution_purpose=10.00
   Worst case: Nonconsensual_Deepfake_Generator
     strongest component: contribution_emissions=0.00
     weakest component:   contribution_emissions=0.00
@@ -34,34 +34,35 @@ Score driver breakdown (best and worst cases):
 Guardrail penalty summary:
   - cases with penalties applied: 7
   - Nonconsensual_Deepfake_Generator: base=0.00, multiplier=0.42, final=0.00
-  - Autonomous_Weapon_Targeting: base=20.81, multiplier=0.42, final=8.74
-  - Deepfake_Voice_Tool: base=23.82, multiplier=0.42, final=10.01
-  - Voter_Suppression_AI: base=32.08, multiplier=0.42, final=13.48
-  - Misinformation_Bot: base=35.35, multiplier=0.42, final=14.85
+  - Autonomous_Weapon_Targeting: base=15.71, multiplier=0.42, final=6.60
+  - Deepfake_Voice_Tool: base=19.59, multiplier=0.42, final=8.23
+  - Voter_Suppression_AI: base=26.20, multiplier=0.42, final=11.00
+  - Misinformation_Bot: base=29.05, multiplier=0.42, final=12.20
 
 Correlation with Justifiability Score (Pearson):
-  - emissions_kgco2e: -0.225
-  - ethical_risk_score: -0.820
-  - creative_displacement_score: -0.575
+  - emissions_kgco2e: -0.192
+  - ethical_risk_score: -0.881
+  - creative_displacement_score: -0.488
 
 Scores by purpose_category:
-  - beneficial: n=13, mean=72.74, min=55.61, max=87.47
-  - essential: n=10, mean=86.51, min=75.64, max=100.00
-  - harmful: n=7, mean=11.27, min=0.00, max=16.22
-  - low_benefit: n=10, mean=41.61, min=23.50, max=62.41
+  - beneficial: n=13, mean=67.15, min=43.66, max=85.13
+  - essential: n=10, mean=81.57, min=67.27, max=96.25
+  - harmful: n=7, mean=9.14, min=0.00, max=13.40
+  - low_benefit: n=10, mean=42.94, min=27.75, max=62.16
 
 Pareto-optimal solutions: 1/40
 Top Pareto cases:
-  - Accessibility_Captioning: 100.0
+  - Accessibility_Captioning: 96.25
 
 Sensitivity analysis (weight variation):
-  - rank stability (Spearman): min=0.968, max=1.000
-  - most disruptive setting: w_emissions=0.6 (stability=0.968)
+  - rank stability (Spearman): min=0.986, max=1.000
+  - most disruptive setting: w_emissions=0.6 (stability=0.986)
 
 Monte Carlo weight robustness:
-  - most frequent top-ranked case: Accessibility_Captioning (win_rate=1.0)
+  - most frequent top-ranked case: Earthquake_Early_Warning (win_rate=0.52)
   - Top 5 winners:
-    * Accessibility_Captioning: win_rate=1.0
+    * Earthquake_Early_Warning: win_rate=0.52
+    * Accessibility_Captioning: win_rate=0.48
 
 Baseline comparison (equal weights vs default):
-  - rank correlation (Spearman via ranks): 0.988
+  - rank correlation (Spearman via ranks): 0.990

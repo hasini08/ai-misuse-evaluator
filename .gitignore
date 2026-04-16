@@ -1,4 +1,14 @@
+.env
+__pycache__/
+*.pyc
+*.pycache
+.pytest_cache/
 *.bak
 emissions.csv
-__pycache__/
-.pytest_cache/
+emissions.csv.bak
+emissions.csv_0.bak
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
