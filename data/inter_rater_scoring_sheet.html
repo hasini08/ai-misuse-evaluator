@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Use Case Scoring – Hasini's Dissertation Study</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 860px; margin: 0 auto; padding: 24px; color: #1a1a1a; line-height: 1.6; }
+  h1 { font-size: 1.5rem; border-bottom: 3px solid #0d6efd; padding-bottom: 8px; }
+  h2 { font-size: 1.1rem; margin-top: 32px; color: #0d6efd; }
+  .intro { background: #f0f7ff; border-left: 4px solid #0d6efd; padding: 14px 18px; border-radius: 4px; margin-bottom: 24px; }
+  .scale-box { background: #fff8e1; border: 1px solid #ffc107; border-radius: 6px; padding: 14px 18px; margin-bottom: 24px; }
+  .scale-box h3 { margin: 0 0 8px; font-size: 0.95rem; color: #b45309; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 28px; font-size: 0.9rem; }
+  th { background: #0d6efd; color: white; padding: 10px 12px; text-align: left; }
+  td { padding: 10px 12px; border-bottom: 1px solid #dee2e6; vertical-align: top; }
+  tr:nth-child(even) td { background: #f8f9fa; }
+  td input[type=number] { width: 52px; padding: 4px 6px; border: 1px solid #aaa; border-radius: 4px; font-size: 14px; }
+  .name-row { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  .name-row label { font-weight: bold; }
+  .name-row input { padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 14px; flex: 1; min-width: 200px; }
+  .use-case-desc { font-size: 0.82rem; color: #555; margin-top: 3px; }
+  .submit-section { background: #e8f5e9; border: 1px solid #4caf50; border-radius: 6px; padding: 16px 20px; margin-top: 24px; }
+  .submit-section p { margin: 0 0 10px; font-size: 0.9rem; }
+  button { background: #0d6efd; color: white; border: none; padding: 10px 22px; font-size: 15px; border-radius: 6px; cursor: pointer; }
+  button:hover { background: #0b5ed7; }
+  #output { display:none; background:#f1f8ff; border:1px solid #0d6efd; border-radius:6px; padding:16px; margin-top:16px; font-family:monospace; white-space:pre-wrap; font-size:13px; }
+  .note { font-size: 0.8rem; color: #666; margin-top: 6px; }
+  @media print { button, #output { display: none; } }
+</style>
+</head>
+<body>
+
+<h1> AI Use Case Scoring — Inter-Rater Reliability Study</h1>
+<div class="intro">
+  <strong>Thank you for helping with my dissertation!</strong><br><br>
+  I'm a 3rd-year Computer Science student at the University of Leeds. For my project I've built a
+  framework that scores AI tools on how "justifiable" they are to society. To validate my scoring
+  method, I need <strong>2–3 people to independently score the same 12 AI use cases</strong> using
+  two criteria. This takes about <strong>10–15 minutes</strong>. There are no right or wrong answers,
+  I just need your honest opinion.
+</div>
+
+<div class="name-row">
+  <label for="rater_name">Your name / initials:</label>
+  <input type="text" id="rater_name" placeholder="e.g. Sarah K." />
+  <label for="rater_bg">Your background (optional):</label>
+  <input type="text" id="rater_bg" placeholder="e.g. non-technical, works in healthcare…" />
+</div>
+
+<!-- ─── SCALE DEFINITIONS ──────────────────────────────────────────── -->
+<h2>How to Score</h2>
+<p>For each AI use case, give <strong>two scores</strong> using the scales below. Please read the
+definitions carefully before you start — the anchors matter.</p>
+
+<div class="scale-box">
+  <h3>📊 Scale A — Ethical Risk (1 to 5)</h3>
+  <table>
+    <tr><th>Score</th><th>What it means</th><th>Example</th></tr>
+    <tr><td><strong>1</strong></td><td>No meaningful risk to individuals or society</td><td>A tool that predicts weather from satellite data</td></tr>
+    <tr><td><strong>2</strong></td><td>Minor privacy or fairness implications, but well-controlled by design</td><td>A chatbot that stores conversation history but you can delete it</td></tr>
+    <tr><td><strong>3</strong></td><td>Significant risk that needs active management; could cause harm if misused</td><td>A facial recognition system used in airports</td></tr>
+    <tr><td><strong>4</strong></td><td>High risk of harm to specific groups of people; hard to fully mitigate</td><td>A tool that automatically screens job applicants using past hiring data</td></tr>
+    <tr><td><strong>5</strong></td><td>Severe or systematic harm; or the tool is designed to cause harm as its main function</td><td>A bot that generates fake political news at scale</td></tr>
+  </table>
+</div>
+
+<div class="scale-box">
+  <h3>🔍 Scale B — Transparency / Explainability (1 to 5)</h3>
+  <p class="note">This asks: if this AI tool made a decision that affected you, could you understand <em>why</em>?</p>
+  <table>
+    <tr><th>Score</th><th>What it means</th><th>Example</th></tr>
+    <tr><td><strong>1</strong></td><td>Completely opaque — no explanation given, impossible to audit</td><td>A black-box model where you just get a "yes/no" with no reason</td></tr>
+    <tr><td><strong>2</strong></td><td>Very limited — maybe a confidence percentage but no real explanation</td><td>"Your application was rejected" — no further detail</td></tr>
+    <tr><td><strong>3</strong></td><td>Partial — some explanation available (e.g. highlights key factors) but not full reasoning</td><td>"We rejected you mainly due to credit score" — but doesn't say what score</td></tr>
+    <tr><td><strong>4</strong></td><td>Good — clear, human-readable explanations available for most decisions</td><td>A medical tool that lists which symptoms drove its diagnosis</td></tr>
+    <tr><td><strong>5</strong></td><td>Fully transparent — the reasoning can be completely audited and verified</td><td>A rule-based system or physics model where every step is checkable</td></tr>
+  </table>
+</div>
+
+<!-- ─── SCORING TABLE ──────────────────────────────────────────────── -->
+<h2>Score These 12 AI Use Cases</h2>
+<p>Enter a number from 1–5 for each. If you've never heard of the tool, use your best judgment
+based on the description. Leave the cell blank if you genuinely cannot decide.</p>
+
+<table id="scoring_table">
+  <tr>
+    <th>#</th>
+    <th>AI Use Case</th>
+    <th>Description</th>
+    <th>Scale A<br>Ethical Risk<br>(1=low, 5=high)</th>
+    <th>Scale B<br>Transparency<br>(1=opaque, 5=fully clear)</th>
+  </tr>
+
+  <tr>
+    <td>1</td>
+    <td><strong>Medical Triage Assistant</strong></td>
+    <td>An AI used in A&E departments to sort incoming patients by urgency — it suggests who should be seen first based on symptoms.</td>
+    <td><input type="number" min="1" max="5" id="r1a" /></td>
+    <td><input type="number" min="1" max="5" id="r1b" /></td>
+  </tr>
+
+  <tr>
+    <td>2</td>
+    <td><strong>Deepfake Voice Tool</strong></td>
+    <td>A tool that can clone anyone's voice from a short recording and generate speech in that voice saying anything.</td>
+    <td><input type="number" min="1" max="5" id="r2a" /></td>
+    <td><input type="number" min="1" max="5" id="r2b" /></td>
+  </tr>
+
+  <tr>
+    <td>3</td>
+    <td><strong>Earthquake Early Warning System</strong></td>
+    <td>A physics-based AI that detects seismic patterns and sends public alerts seconds before shaking reaches populated areas.</td>
+    <td><input type="number" min="1" max="5" id="r3a" /></td>
+    <td><input type="number" min="1" max="5" id="r3b" /></td>
+  </tr>
+
+  <tr>
+    <td>4</td>
+    <td><strong>Loan Approval Model</strong></td>
+    <td>A machine learning model that banks use to automatically approve or reject loan applications. Decisions are not manually reviewed.</td>
+    <td><input type="number" min="1" max="5" id="r4a" /></td>
+    <td><input type="number" min="1" max="5" id="r4b" /></td>
+  </tr>
+
+  <tr>
+    <td>5</td>
+    <td><strong>AI Art Generator</strong></td>
+    <td>A tool that generates high-quality images in seconds from text descriptions, trained on billions of images including artists' work without their permission.</td>
+    <td><input type="number" min="1" max="5" id="r5a" /></td>
+    <td><input type="number" min="1" max="5" id="r5b" /></td>
+  </tr>
+
+  <tr>
+    <td>6</td>
+    <td><strong>Voter Suppression AI</strong></td>
+    <td>A system used to identify and discourage specific groups of voters from registering or voting, based on demographic data.</td>
+    <td><input type="number" min="1" max="5" id="r6a" /></td>
+    <td><input type="number" min="1" max="5" id="r6b" /></td>
+  </tr>
+
+  <tr>
+    <td>7</td>
+    <td><strong>Code Assistant</strong></td>
+    <td>An AI that suggests code completions as a developer types, trained on public code repositories. It speeds up coding but may occasionally suggest insecure code.</td>
+    <td><input type="number" min="1" max="5" id="r7a" /></td>
+    <td><input type="number" min="1" max="5" id="r7b" /></td>
+  </tr>
+
+  <tr>
+    <td>8</td>
+    <td><strong>Predictive Policing Tool</strong></td>
+    <td>An AI that predicts which neighbourhoods or individuals are likely to commit crimes, used to direct police patrol resources.</td>
+    <td><input type="number" min="1" max="5" id="r8a" /></td>
+    <td><input type="number" min="1" max="5" id="r8b" /></td>
+  </tr>
+
+  <tr>
+    <td>9</td>
+    <td><strong>Accessibility Captioning Tool</strong></td>
+    <td>Real-time automated captions for deaf and hard-of-hearing users in video calls and live events. No personal decisions are made.</td>
+    <td><input type="number" min="1" max="5" id="r9a" /></td>
+    <td><input type="number" min="1" max="5" id="r9b" /></td>
+  </tr>
+
+  <tr>
+    <td>10</td>
+    <td><strong>Emotion Analysis for HR</strong></td>
+    <td>A tool used by companies during job interviews to infer candidates' emotions and personality traits from their facial expressions and tone of voice.</td>
+    <td><input type="number" min="1" max="5" id="r10a" /></td>
+    <td><input type="number" min="1" max="5" id="r10b" /></td>
+  </tr>
+
+  <tr>
+    <td>11</td>
+    <td><strong>Nonconsensual Deepfake Generator</strong></td>
+    <td>A tool marketed specifically for creating realistic fake intimate imagery of real people without their knowledge or consent.</td>
+    <td><input type="number" min="1" max="5" id="r11a" /></td>
+    <td><input type="number" min="1" max="5" id="r11b" /></td>
+  </tr>
+
+  <tr>
+    <td>12</td>
+    <td><strong>Climate Forecasting Model</strong></td>
+    <td>A scientific AI model that predicts long-term climate patterns from atmospheric and ocean data, used by governments for climate policy planning.</td>
+    <td><input type="number" min="1" max="5" id="r12a" /></td>
+    <td><input type="number" min="1" max="5" id="r12b" /></td>
+  </tr>
+
+</table>
+
+<div class="submit-section">
+  <p>When you're done, click <strong>Generate Results</strong>. Copy the text that appears and
+  send it to Hasini (email or WhatsApp). thank you so much! </p>
+  <button onclick="generateOutput()">Generate Results →</button>
+  <div id="output"></div>
+</div>
+
+<p class="note" style="margin-top:24px;">
+  Your responses will only be used for this academic project. No personally identifiable information
+  is shared beyond what you choose to put in the "name" field above.
+</p>
+
+<script>
+function generateOutput() {
+  const name = document.getElementById('rater_name').value || 'Anonymous';
+  const bg   = document.getElementById('rater_bg').value   || 'not provided';
+
+  const cases = [
+    'Medical_Triage_Assistant',
+    'Deepfake_Voice_Tool',
+    'Earthquake_Early_Warning',
+    'Loan_Approval_Model',
+    'AI_Art_Generator',
+    'Voter_Suppression_AI',
+    'Code_Assistant',
+    'Predictive_Policing_Tool',
+    'Accessibility_Captioning',
+    'Emotion_Analysis_For_HR',
+    'Nonconsensual_Deepfake_Generator',
+    'Climate_Forecasting_Model',
+  ];
+
+  let missing = [];
+  let csvRows = ['use_case_name,ethical_risk_score,transparency_score'];
+
+  cases.forEach((name_case, i) => {
+    const a = document.getElementById(`r${i+1}a`).value;
+    const b = document.getElementById(`r${i+1}b`).value;
+    if (!a || !b) missing.push(i + 1);
+    csvRows.push(`${name_case},${a || ''},${b || ''}`);
+  });
+
+  if (missing.length > 0) {
+    if (!confirm(`You left row(s) ${missing.join(', ')} blank. Continue anyway?`)) return;
+  }
+
+  const ts = new Date().toISOString().slice(0, 19).replace('T', '_');
+  const header = `=== Inter-Rater Scoring Results ===\nRater: ${name}\nBackground: ${bg}\nTimestamp: ${ts}\n\n`;
+  const csv = csvRows.join('\n');
+
+  const el = document.getElementById('output');
+  el.style.display = 'block';
+  el.textContent = header + csv;
+}
+</script>
+</body>
+</html>
