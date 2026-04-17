@@ -1,0 +1,4 @@
+workload_name,description,emissions_kgco2e,wall_time_s
+Tier1_Lightweight,500 x 512x512 matmul + softmax (small LLM inference),0.000141318,12.814
+Tier2_Medium,200 x 2048x2048 matmul + layer norm (BERT-size inference),0.000645781,74.575
+Tier3_Heavy,5s sustained 4096x4096 matmul (large model / training step),5.5859e-05,7.049
