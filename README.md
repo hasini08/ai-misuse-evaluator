@@ -147,7 +147,7 @@ ai-misuse-evaluator/
 │   ├── ablation_results.csv       # Leave-one-dimension-out results
 │   └── rater_1.csv                # Inter-rater reliability data
 ├── figures/                       # Generated visualisations
-│   ├── score_bar.png
+│   ├── score_top_bottom.png
 │   ├── score_distribution.png
 │   ├── correlation_matrix.png
 │   ├── sensitivity_weights.png
