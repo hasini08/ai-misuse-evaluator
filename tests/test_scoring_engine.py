@@ -16,13 +16,14 @@ from scoring_engine import compute_scores, minmax, PURPOSE_WEIGHTS
 # ── Helpers ──────────────────────────────────────────────────────────────────
 
 def make_row(name="Test", emissions=0.005, purpose="beneficial",
-             ethics=2, creativity=2):
+             ethics=2, creativity=2, transparency=3):
     return {
         "use_case_name": name,
         "emissions_kgco2e": emissions,
         "purpose_category": purpose,
         "ethical_risk_score": ethics,
         "creative_displacement_score": creativity,
+        "transparency_score": transparency,
     }
 
 
@@ -52,9 +53,11 @@ class TestOutputStructure:
         for col in ["justifiability_score", "label",
                     "component_emissions", "component_ethics",
                     "component_creativity", "component_purpose",
+                    "component_transparency",
                     "base_score", "guardrail_multiplier",
                     "contribution_emissions", "contribution_ethics",
-                    "contribution_creativity", "contribution_purpose"]:
+                    "contribution_creativity", "contribution_purpose",
+                    "contribution_transparency"]:
             assert col in scored.columns, f"Missing column: {col}"
 
     def test_label_values_are_valid(self):
@@ -116,7 +119,8 @@ class TestComponentBehaviour:
         df = pd.DataFrame([make_row()])
         scored = compute_scores(df)
         for col in ["component_emissions", "component_ethics",
-                    "component_creativity", "component_purpose"]:
+                    "component_creativity", "component_purpose",
+                    "component_transparency"]:
             val = float(scored[col].iloc[0])
             assert 0.0 <= val <= 100.0, f"{col} out of range: {val}"
 
@@ -160,8 +164,9 @@ class TestWeightConfiguration:
 
     def test_equal_weights_runs_without_error(self):
         df = pd.DataFrame([make_row()])
-        scored = compute_scores(df, w_emissions=0.25, w_ethics=0.25,
-                                w_creativity=0.25, w_purpose=0.25)
+        scored = compute_scores(df, w_emissions=0.20, w_ethics=0.20,
+                                w_creativity=0.20, w_purpose=0.20,
+                                w_transparency=0.20)
         assert len(scored) == 1
 
     def test_emissions_dominant_weight_rewards_low_emissions(self):
