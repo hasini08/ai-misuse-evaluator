@@ -150,8 +150,8 @@
   }
 
   /* ── LABEL STYLES ───────────────────────────────────────── */
-  .lbl-card { background:#fff; border:2px solid #1a1a2e; border-radius:4px; width:186px; font-family:'Arial Narrow',Arial,sans-serif; cursor:pointer; flex-shrink:0; transition:transform 0.15s,box-shadow 0.15s; }
-  .lbl-card:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(0,0,0,0.4); }
+  .lbl-card { background:#fff; border:2px solid #1a1a2e; border-radius:4px; width:186px; font-family:'Arial Narrow',Arial,sans-serif; cursor:pointer; flex-shrink:0; transition:transform 0.18s,box-shadow 0.18s; }
+  .lbl-card:hover { transform:translateY(-4px); box-shadow:0 14px 36px rgba(0,0,0,0.5); }
   .lbl-hdr { background:#1a1a2e; color:#fff; padding:5px 8px; display:flex; justify-content:space-between; align-items:flex-start; }
   .lbl-hdr-main { font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; }
   .lbl-hdr-sub { font-size:7px; color:#aac; line-height:1.4; }
@@ -210,7 +210,6 @@
     <button class="tab-btn active" onclick="switchTab('explorer')">📊 Dataset Explorer</button>
     <button class="tab-btn" onclick="switchTab('custom')">⚡ Custom Evaluator</button>
     <button class="tab-btn" onclick="switchTab('compare')">📈 Compare & Rank</button>
-    <button class="tab-btn" onclick="switchTab('labels')">🏷️ Labels</button>
   </div>
 
   <!-- ══════════════════════════════════════════════
@@ -254,7 +253,11 @@
         <div class="analysis-title">Analysis</div>
         <div class="analysis-text" id="explorer-analysis"></div>
       </div>
-      <button class="view-label-btn" id="explorer-label-btn" onclick="showLabelModalFromCache('explorer')">🏷️ View Justifiability Label</button>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-title">AI Justifiability Label</div>
+        <div id="explorer-label-inline" style="display:flex;justify-content:center;padding:12px 0 4px"></div>
+        <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px">Click the label to see the full breakdown</p>
+      </div>
       <button class="back-btn" onclick="backToInput('explorer')">← Evaluate another use case</button>
     </div>
   </div>
@@ -341,7 +344,11 @@
         <div class="dist-axis"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
         <div id="custom-percentile-badge"></div>
       </div>
-      <button class="view-label-btn" id="custom-label-btn" onclick="showLabelModalFromCache('custom')">🏷️ View Justifiability Label</button>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-title">AI Justifiability Label</div>
+        <div id="custom-label-inline" style="display:flex;justify-content:center;padding:12px 0 4px"></div>
+        <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px">Click the label to see the full breakdown</p>
+      </div>
       <button class="back-btn" onclick="backToInput('custom')">← Evaluate another tool</button>
     </div>
   </div>
@@ -378,17 +385,7 @@
   </div>
 </div>
 
-  <!-- ══════════════════════════════════════════════
-       TAB 4: LABELS
-  ══════════════════════════════════════════════ -->
-  <div class="tab-panel" id="tab-labels">
-    <div class="card">
-      <div class="card-title" style="margin-bottom:4px">AI Justifiability Labels</div>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:0;line-height:1.6">Each label summarises an AI system's justifiability score across five dimensions — like an EU energy rating for AI. Click any label to see the full breakdown.</p>
-    </div>
-    <div class="labels-grid" id="labels-grid"></div>
   </div>
-</div>
 
 <!-- ── LABEL MODAL ──────────────────────────────────────── -->
 <div class="lbl-modal" id="lbl-modal" onclick="if(event.target===this)closeLabelModal()">
@@ -538,7 +535,6 @@ function switchTab(name) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
   if (name === 'compare') renderCompare();
-  if (name === 'labels') renderLabelsTab();
 }
 
 // ── SCORE DISPLAY HELPERS ───────────────────────────────────────────────────
@@ -665,6 +661,8 @@ function renderDatasetResult(base) {
   document.getElementById('explorer-score-hero').innerHTML = makeScoreHero(d);
   document.getElementById('explorer-components').innerHTML = makeComponents(d, weights.explorer);
   document.getElementById('explorer-analysis').textContent = buildAnalysis(d);
+  document.getElementById('explorer-label-inline').innerHTML =
+    makeLabelCard(d, "showLabelModalFromCache('explorer')");
   document.getElementById('explorer-result').classList.add('active');
 }
 
@@ -722,6 +720,8 @@ function evaluateCustom() {
   document.getElementById('custom-score-hero').innerHTML = makeScoreHero(d);
   document.getElementById('custom-components').innerHTML = makeComponents(d, weights.custom);
   document.getElementById('custom-analysis').textContent = buildAnalysis(d);
+  document.getElementById('custom-label-inline').innerHTML =
+    makeLabelCard(d, "showLabelModalFromCache('custom')");
 
   // Distribution chart
   renderDistChart('custom-dist-chart', scoredAll, d.justifiability_score);
@@ -756,7 +756,7 @@ function renderCompare() {
 }
 
 // ── LABEL GENERATION ─────────────────────────────────────────────────────────
-let _labelCache = { explorer: null, custom: null };
+let _labelCache = { explorer: null, custom: null, _picker: null };
 
 function getGradeLetter(s) {
   return s >= 80 ? 'A' : s >= 65 ? 'B' : s >= 50 ? 'C' : s >= 35 ? 'D' : s >= 20 ? 'E' : 'F';
@@ -901,16 +901,76 @@ function showLabelModalByName(name) {
 }
 
 function renderLabelsTab() {
-  const allEm = DATASET.map(r => r.emissions_kgco2e);
-  const scored = DATASET.map(r => ({ ...r, ...scoreRow(r, weights.compare, allEm) }));
-  scored.sort((a,b) => b.justifiability_score - a.justifiability_score);
-  const grid = document.getElementById('labels-grid');
-  if (!grid) return;
-  grid.innerHTML = scored.map(d => `
-    <div class="label-grid-item">
-      ${makeLabelCard(d, `showLabelModalByName('${d.use_case_name}')`)}
-      <div class="label-grid-score">#${scored.indexOf(d)+1} · ${d.justifiability_score}</div>
-    </div>`).join('');
+  const sel = document.getElementById('label-picker-select');
+  if (!sel) return;
+
+  // Rebuild options (keep the placeholder)
+  while (sel.options.length > 1) sel.remove(1);
+
+  // If a custom result exists, add it at the top
+  if (_labelCache.custom) {
+    const o = document.createElement('option');
+    o.value = '__custom__';
+    o.textContent = '⚡ ' + humanise(_labelCache.custom.use_case_name) + ' (your custom tool)';
+    sel.appendChild(o);
+  }
+
+  // All dataset use cases A–Z
+  [...DATASET]
+    .sort((a,b) => a.use_case_name.localeCompare(b.use_case_name))
+    .forEach(r => {
+      const o = document.createElement('option');
+      o.value = r.use_case_name;
+      o.textContent = humanise(r.use_case_name);
+      sel.appendChild(o);
+    });
+
+  // Auto-select custom if it was just evaluated; otherwise clear display
+  if (_labelCache.custom) {
+    sel.value = '__custom__';
+    renderLabelPicker();
+  } else {
+    sel.value = '';
+    document.getElementById('label-picker-display').innerHTML = '';
+  }
+}
+
+function renderLabelPicker() {
+  const sel = document.getElementById('label-picker-select');
+  const display = document.getElementById('label-picker-display');
+  const val = sel ? sel.value : '';
+  if (!val) { display.innerHTML = ''; return; }
+
+  let d;
+  if (val === '__custom__') {
+    d = _labelCache.custom;
+  } else {
+    const allEm = DATASET.map(r => r.emissions_kgco2e);
+    const base = DATASET.find(r => r.use_case_name === val);
+    if (!base) { display.innerHTML = ''; return; }
+    d = { ...base, ...scoreRow(base, weights.compare, allEm) };
+  }
+  if (!d) { display.innerHTML = ''; return; }
+
+  _labelCache._picker = d;
+  const gc = getGradeColor(d.justifiability_score);
+  const grade = getGradeLetter(d.justifiability_score);
+  const bandLabel = d.justifiability_score > 70 ? 'High' : d.justifiability_score > 40 ? 'Medium' : 'Low';
+
+  display.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:28px 0 8px">
+      <div style="font-size:11px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase">
+        Grade <span style="color:${gc};font-weight:700">${grade}</span>
+        &nbsp;·&nbsp; Score <span style="color:${gc};font-weight:700">${d.justifiability_score}</span>/100
+        &nbsp;·&nbsp; ${bandLabel} Justifiability
+      </div>
+      ${makeLabelCard(d, 'showLabelModalForPicker()')}
+      <div style="font-size:11px;color:var(--muted);opacity:0.7">↑ click the label to see the full breakdown</div>
+    </div>`;
+}
+
+function showLabelModalForPicker() {
+  if (_labelCache._picker) showLabelModal(_labelCache._picker);
 }
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
