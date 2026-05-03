@@ -12,3 +12,6 @@ venv/
 *.egg-info/
 dist/
 build/
+.pytest_cache/
+src/__pycache__/
+tests/__pycache__/

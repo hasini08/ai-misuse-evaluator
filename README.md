@@ -1,5 +1,10 @@
 # AI Misuse Evaluator
 
+[![Tests](https://github.com/hasini08/ai-misuse-evaluator/actions/workflows/tests.yml/badge.svg)](https://github.com/hasini08/ai-misuse-evaluator/actions/workflows/tests.yml)
+![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)
+![Tests](https://img.shields.io/badge/tests-66%20passing-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 A modular Python framework for evaluating the **justifiability** of AI use cases using a five-dimensional responsibility framework. The system integrates environmental impact, ethical risk, creative displacement, purpose justification, and transparency/explainability into a single **Justifiability Score (0–100)** with explainable component breakdown, robustness analysis, and quantitative evaluation outputs.
 
 > COMP3931 Individual Project — University of Leeds — 2025/26
@@ -147,7 +152,7 @@ ai-misuse-evaluator/
 │   ├── ablation_results.csv       # Leave-one-dimension-out results
 │   └── rater_1.csv                # Inter-rater reliability data
 ├── figures/                       # Generated visualisations
-│   ├── score_top_bottom.png
+│   ├── score_bar.png
 │   ├── score_distribution.png
 │   ├── correlation_matrix.png
 │   ├── sensitivity_weights.png
