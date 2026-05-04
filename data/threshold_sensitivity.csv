@@ -1,0 +1,5 @@
+threshold_config,low_threshold,high_threshold,n_low,n_medium,n_high,changes_vs_default,pct_changed
+conservative (35/65),35,65,10,11,19,8,20.0
+default (40/70),40,70,12,15,13,0,0.0
+strict (45/75),45,75,14,16,10,5,12.5
+equal-tertile (33/67),33,67,8,14,18,9,22.5
