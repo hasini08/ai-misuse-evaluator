@@ -203,7 +203,7 @@
   .sci-hbar-val { font-size:11px; font-family:var(--font-mono); color:var(--muted); width:40px; text-align:right; flex-shrink:0; }
   .sci-two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; }
   @media(max-width:600px) { .sci-stat-row{grid-template-columns:repeat(2,1fr);} .mc-detail-grid{grid-template-columns:1fr;} .sci-two-col{grid-template-columns:1fr;} }
-  /* ── How We Built It — interactive elements ── */
+  /* ── How We Built It – interactive elements ── */
   .hero-counter { font-family:var(--font-display); font-size:2.4rem; color:var(--teal); line-height:1; display:inline-block; }
 
   /* ── Proof cards ── */
@@ -331,14 +331,14 @@
   <header>
     <div class="badge">COMP3931 Individual Project · University of Leeds · 2025/26</div>
     <h1>AI Misuse Evaluator</h1>
-    <p class="subtitle">A free, open tool that scores any AI system out of 100 — so anyone can understand whether an AI tool is truly justified, regardless of their technical background.</p>
+    <p class="subtitle">A free, open tool that scores any AI system out of 100 – so anyone can understand whether an AI tool is truly justified, regardless of their technical background.</p>
   </header>
 
   <!-- HERO INTRO -->
   <div class="hero-intro">
     <h2>What is this tool and why does it exist?</h2>
-    <p>Artificial intelligence (AI) is now used everywhere — in hospitals, schools, social media, policing, and creative industries. But most people have no way of knowing whether a particular AI tool is actually good for society, or whether it causes harm. Experts disagree, the science is complex, and companies rarely publish honest assessments of their own products.</p>
-    <p>This tool solves that problem by applying a <strong>scientific scoring method</strong> to 40 real AI systems. It measures five things that matter — environmental impact, ethical risk, creative displacement, purpose, and transparency — and combines them into a single <strong>Justifiability Score from 0 to 100</strong>, along with an <strong>A–F grade</strong> (just like an EU energy rating on a fridge). The higher the score, the more justified the AI system is. The lower the score, the more reasons there are to question whether it should exist.</p>
+    <p>Artificial intelligence (AI) is now used everywhere – in hospitals, schools, social media, policing, and creative industries. But most people have no way of knowing whether a particular AI tool is actually good for society, or whether it causes harm. Experts disagree, the science is complex, and companies rarely publish honest assessments of their own products.</p>
+    <p>This tool solves that problem by applying a <strong>scientific scoring method</strong> to 40 real AI systems. It measures five things that matter – environmental impact, ethical risk, creative displacement, purpose, and transparency – and combines them into a single <strong>Justifiability Score from 0 to 100</strong>, along with an <strong>A–F grade</strong> (just like an EU energy rating on a fridge). The higher the score, the more justified the AI system is. The lower the score, the more reasons there are to question whether it should exist.</p>
     <p>You don't need to know anything about AI or data science to use this tool. Everything is explained in plain language.</p>
     <div class="collapsible-toggle" onclick="toggleCollapse('how-it-works')">
       <span style="font-size:12px;color:var(--teal);font-weight:600">▶ How does the scoring work? (click to expand)</span>
@@ -346,7 +346,7 @@
     </div>
     <div class="collapsible-body" id="how-it-works">
       <div class="steps-row">
-        <div class="step-box"><div class="step-num">1</div><div class="step-text">We collect data about an AI system across 5 dimensions — things like its carbon footprint and whether it's been used harmfully</div></div>
+        <div class="step-box"><div class="step-num">1</div><div class="step-text">We collect data about an AI system across 5 dimensions, things like its carbon footprint and whether it's been used harmfully</div></div>
         <div class="step-box"><div class="step-num">2</div><div class="step-text">Each dimension is converted to a 0–100 score using a formula. Higher always means better (lower emissions, lower risk, higher transparency)</div></div>
         <div class="step-box"><div class="step-num">3</div><div class="step-text">The five scores are combined using a weighted average. Environmental impact counts the most (35%), followed by ethics (25%), then transparency and creativity (15% each), then purpose (10%)</div></div>
         <div class="step-box"><div class="step-num">4</div><div class="step-text">A final score from 0–100 is produced and converted to a grade: A (≥80) down to F (&lt;20). You can also change the weights to reflect what matters most to you</div></div>
@@ -355,7 +355,7 @@
         <div style="font-size:12px;font-weight:600;color:var(--white);margin-bottom:8px">The five dimensions we measure:</div>
         <div class="dim-info-row">
           <div class="dim-info-card"><div class="d-icon">🌱</div><div class="d-name">Emissions</div><div class="d-desc">How much CO₂ does running this AI system produce? Training a large AI model can emit as much carbon as five cars over their entire lifetime.</div></div>
-          <div class="dim-info-card"><div class="d-icon">⚖️</div><div class="d-name">Ethical Risk</div><div class="d-desc">Could this AI cause harm — bias, discrimination, privacy violations, surveillance, or being used as a weapon? This is the strongest predictor of whether an AI is justifiable.</div></div>
+          <div class="dim-info-card"><div class="d-icon">⚖️</div><div class="d-name">Ethical Risk</div><div class="d-desc">Could this AI cause harm – bias, discrimination, privacy violations, surveillance, or being used as a weapon? This is the strongest predictor of whether an AI is justifiable.</div></div>
           <div class="dim-info-card"><div class="d-icon">🎨</div><div class="d-name">Creative Displacement</div><div class="d-desc">Does this AI replace human artists, writers, musicians, or other creative professionals, potentially destroying livelihoods?</div></div>
           <div class="dim-info-card"><div class="d-icon">🎯</div><div class="d-name">Purpose</div><div class="d-desc">Is there a genuine, important reason for this AI to exist? Saving lives in a hospital is essential. Generating spam emails is not.</div></div>
           <div class="dim-info-card"><div class="d-icon">🔍</div><div class="d-name">Transparency</div><div class="d-desc">Can you understand how the AI made its decision? Can you challenge it? Opaque "black box" systems that no one can explain or audit are a serious concern.</div></div>
@@ -363,19 +363,19 @@
         <div style="margin-top:14px">
           <div style="font-size:12px;font-weight:600;color:var(--white);margin-bottom:8px">What do the grades mean?</div>
           <div class="grade-row-explain">
-            <div class="gpe" style="background:#1a7340"><span class="gl">A</span><span class="gt">Score ≥ 80 — Strongly justifiable. Clear benefit, low harm, transparent, responsible.</span></div>
-            <div class="gpe" style="background:#4caf50"><span class="gl">B</span><span class="gt">Score 65–79 — Well justified. Minor concerns but overall positive.</span></div>
-            <div class="gpe" style="background:#8bc34a"><span class="gl">C</span><span class="gt">Score 50–64 — Borderline. Some real concerns that need addressing.</span></div>
-            <div class="gpe" style="background:#c8a000"><span class="gl">D</span><span class="gt">Score 35–49 — Poorly justified. Significant problems outweigh the benefits.</span></div>
-            <div class="gpe" style="background:#ff9800"><span class="gl">E</span><span class="gt">Score 20–34 — Very hard to justify. Serious harms, minimal benefit.</span></div>
-            <div class="gpe" style="background:#f44336"><span class="gl">F</span><span class="gt">Score &lt; 20 — Cannot be justified. This AI system causes more harm than good.</span></div>
+            <div class="gpe" style="background:#1a7340"><span class="gl">A</span><span class="gt">Score ≥ 80 – Strongly justifiable. Clear benefit, low harm, transparent, responsible.</span></div>
+            <div class="gpe" style="background:#4caf50"><span class="gl">B</span><span class="gt">Score 65–79 – Well justified. Minor concerns but overall positive.</span></div>
+            <div class="gpe" style="background:#8bc34a"><span class="gl">C</span><span class="gt">Score 50–64 – Borderline. Some real concerns that need addressing.</span></div>
+            <div class="gpe" style="background:#c8a000"><span class="gl">D</span><span class="gt">Score 35–49 – Poorly justified. Significant problems outweigh the benefits.</span></div>
+            <div class="gpe" style="background:#ff9800"><span class="gl">E</span><span class="gt">Score 20–34 – Very hard to justify. Serious harms, minimal benefit.</span></div>
+            <div class="gpe" style="background:#f44336"><span class="gl">F</span><span class="gt">Score &lt; 20 – Cannot be justified. This AI system causes more harm than good.</span></div>
           </div>
         </div>
         <div style="margin-top:14px;font-size:12px;color:var(--muted);line-height:1.7">
-          <strong style="color:var(--white)">Why these weights?</strong> The decision to weight environmental impact most heavily (35%) reflects a growing body of research showing that AI's carbon footprint is a severe and underreported problem (Strubell et al., 2019). Ethics is weighted second (25%) because our analysis found it to be the strongest single predictor of justifiability. Transparency (15%) reflects the EU AI Act's legal requirements. All weights are user-adjustable — you are not forced to agree with our defaults.
+          <strong style="color:var(--white)">Why these weights?</strong> The decision to weight environmental impact most heavily (35%) reflects a growing body of research showing that AI's carbon footprint is a severe and underreported problem (Strubell et al., 2019). Ethics is weighted second (25%) because our analysis found it to be the strongest single predictor of justifiability. Transparency (15%) reflects the EU AI Act's legal requirements. All weights are user-adjustable – you are not forced to agree with our defaults.
         </div>
         <div style="margin-top:10px;font-size:12px;color:var(--muted);line-height:1.7">
-          <strong style="color:var(--white)">One important rule — the guardrail.</strong> If an AI system is classified as "harmful" in purpose, no amount of high scores on other dimensions can fully compensate. A penalty multiplier is applied (×0.60, or ×0.42 for the most harmful cases). This reflects the principle that you cannot justify a weapon by saying it runs on green energy.
+          <strong style="color:var(--white)">One important rule – the guardrail.</strong> If an AI system is classified as "harmful" in purpose, no amount of high scores on other dimensions can fully compensate. A penalty multiplier is applied (×0.60, or ×0.42 for the most harmful cases). This reflects the principle that you cannot justify a weapon by saying it runs on green energy.
         </div>
       </div>
     </div>
@@ -404,7 +404,7 @@
         <div class="card-title" style="margin-bottom:0">Adjust Weights</div>
         <button class="reset-weights-btn" onclick="resetWeights('explorer')">Reset defaults</button>
       </div>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Think of weights like marks in an exam — they decide how much each subject counts towards your final grade. The five sliders must add up to 1.00 (100%). Our defaults are based on academic research, but you can change them to reflect your own values.</p>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Think of weights like marks in an exam – they decide how much each subject counts towards your final grade. The five sliders must add up to 1.00 (100%). Our defaults are based on academic research, but you can change them to reflect your own values.</p>
       <div class="weights-grid" id="explorer-weights"></div>
       <div class="weight-total">Total: <span id="explorer-weight-total">1.00</span></div>
     </div>
@@ -434,7 +434,7 @@
       <div id="explorer-score-hero" class="score-hero"></div>
       <div class="explainer" style="margin-top:16px">
         <div class="explainer-title">What do these five component scores mean?</div>
-        <p>Below you can see the score for each of the five dimensions we measure. Each score is out of 100 — higher is always better (meaning lower risk, lower emissions, or higher transparency). The final Justifiability Score is a weighted combination of all five.</p>
+        <p>Below you can see the score for each of the five dimensions we measure. Each score is out of 100 – higher is always better (meaning lower risk, lower emissions, or higher transparency). The final Justifiability Score is a weighted combination of all five.</p>
       </div>
       <div class="components-grid" id="explorer-components"></div>
       <div class="analysis-card">
@@ -442,7 +442,7 @@
         <div class="analysis-text" id="explorer-analysis"></div>
       </div>
       <div style="text-align:center;margin-bottom:16px">
-        <button class="view-label-btn" onclick="showLabelModalFromCache('explorer')">📊 View full justifiability breakdown — with detailed explanations for each dimension</button>
+        <button class="view-label-btn" onclick="showLabelModalFromCache('explorer')">📊 View full justifiability breakdown – with detailed explanations for each dimension</button>
       </div>
       <button class="back-btn" onclick="backToInput('explorer')">← Evaluate another use case</button>
     </div>
@@ -454,8 +454,8 @@
   <div class="tab-panel" id="tab-custom">
     <div class="explainer">
       <div class="explainer-title">⚡ What is this tab?</div>
-      <p>Do you use an AI tool and want to know whether it is truly justified? Enter its details below and we will calculate a Justifiability Score for it — using exactly the same scientific method we used for our 40 pre-evaluated use cases.</p>
-      <p>You don't need to be a technical expert. Each field below is explained so you know exactly what information to provide. If you are unsure about a value, use your best estimate — the tool is designed to be accessible to everyone.</p>
+      <p>Do you use an AI tool and want to know whether it is truly justified? Enter its details below and we will calculate a Justifiability Score for it – using exactly the same scientific method we used for our 40 pre-evaluated use cases.</p>
+      <p>You don't need to be a technical expert. Each field below is explained so you know exactly what information to provide. If you are unsure about a value, use your best estimate – the tool is designed to be accessible to everyone.</p>
     </div>
     <div class="card" id="custom-form-card">
       <div class="card-title">Enter Your AI Tool Details</div>
@@ -480,9 +480,9 @@
           </div>
           <div class="field-note">
             <strong style="color:var(--white)">Essential</strong> — Saves lives, critical infrastructure (e.g. cancer detection, earthquake warning).<br>
-            <strong style="color:var(--white)">Beneficial</strong> — Genuinely useful, improves lives (e.g. accessibility tools, language translation).<br>
-            <strong style="color:var(--white)">Low Benefit</strong> — Marginal value, mainly convenience or entertainment (e.g. novelty chatbot, AI horoscopes).<br>
-            <strong style="color:var(--white)">Harmful</strong> — Designed to deceive, surveil, weaponise or cause harm (e.g. deepfakes, autonomous weapons). Triggers an automatic score penalty.
+            <strong style="color:var(--white)">Beneficial</strong> – Genuinely useful, improves lives (e.g. accessibility tools, language translation).<br>
+            <strong style="color:var(--white)">Low Benefit</strong> – Marginal value, mainly convenience or entertainment (e.g. novelty chatbot, AI horoscopes).<br>
+            <strong style="color:var(--white)">Harmful</strong> – Designed to deceive, surveil, weaponise or cause harm (e.g. deepfakes, autonomous weapons). Triggers an automatic score penalty.
           </div>
         </div>
         <div class="form-group">
@@ -495,7 +495,7 @@
             <button class="ordinal-btn" data-val="5" onclick="setOrdinal('custom-ethics',this)">5</button>
           </div>
           <div class="ordinal-labels"><span>1 = No ethical concerns</span><span>5 = Severe ethical risk</span></div>
-          <div class="field-note">How much potential does this AI have to cause harm? Rate 1 if it is safe and neutral (e.g. a weather forecaster). Rate 5 if it could cause serious harm — discrimination, surveillance, privacy violations, or be used as a weapon. This is the <strong style="color:var(--white)">single most influential dimension</strong> in the score.</div>
+          <div class="field-note">How much potential does this AI have to cause harm? Rate 1 if it is safe and neutral (e.g. a weather forecaster). Rate 5 if it could cause serious harm – discrimination, surveillance, privacy violations, or be used as a weapon. This is the <strong style="color:var(--white)">single most influential dimension</strong> in the score.</div>
         </div>
         <div class="form-group">
           <label class="form-label">🎨 Creative Displacement</label>
@@ -519,7 +519,7 @@
             <button class="ordinal-btn" data-val="5" onclick="setOrdinal('custom-transparency',this)">5</button>
           </div>
           <div class="ordinal-labels"><span>1 = Completely opaque / black box</span><span>5 = Fully explainable</span></div>
-          <div class="field-note">Can the people affected by this AI understand how it reached its decision? Rate 1 if it is a "black box" — no one can explain its reasoning (e.g. a social media algorithm that bans accounts without explanation). Rate 5 if every decision comes with a clear, checkable explanation (e.g. a loan rejection that lists exactly why you were declined).</div>
+          <div class="field-note">Can the people affected by this AI understand how it reached its decision? Rate 1 if it is a "black box" – no one can explain its reasoning (e.g. a social media algorithm that bans accounts without explanation). Rate 5 if every decision comes with a clear, checkable explanation (e.g. a loan rejection that lists exactly why you were declined).</div>
         </div>
       </div>
 
@@ -529,7 +529,7 @@
           <div class="card-title" style="margin-bottom:0">Dimension Weights</div>
           <button class="reset-weights-btn" onclick="resetWeights('custom')">Reset defaults</button>
         </div>
-        <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Optional: adjust how much each dimension counts towards the final score. All five sliders must add up to 1.00. If you are unsure, leave these as they are — the defaults are based on published research.</p>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Optional: adjust how much each dimension counts towards the final score. All five sliders must add up to 1.00. If you are unsure, leave these as they are – the defaults are based on published research.</p>
         <div class="weights-grid" id="custom-weights"></div>
         <div class="weight-total">Total: <span id="custom-weight-total">1.00</span></div>
       </div>
@@ -542,7 +542,7 @@
       <div id="custom-score-hero" class="score-hero"></div>
       <div class="explainer" style="margin-top:16px">
         <div class="explainer-title">What do these five component scores mean?</div>
-        <p>Each score is out of 100 — <strong>higher is always better</strong>. The final Justifiability Score is a weighted combination of all five, using the weights you set above. Click the button below each section to understand the science and data behind each score.</p>
+        <p>Each score is out of 100 – <strong>higher is always better</strong>. The final Justifiability Score is a weighted combination of all five, using the weights you set above. Click the button below each section to understand the science and data behind each score.</p>
       </div>
       <div class="components-grid" id="custom-components"></div>
       <div class="analysis-card">
@@ -569,7 +569,7 @@
     <div class="explainer">
       <div class="explainer-title">📈 What is this tab?</div>
       <p>This table shows all 40 AI systems ranked from most to least justifiable using our scoring framework. Use it to compare systems side by side and see at a glance which AI tools are well justified and which are not.</p>
-      <p><strong>Try changing the weights</strong> below to see how the rankings shift depending on what you care about most. For example, push the Ethics slider to 0.50 and watch which use cases rise and fall in the ranking — it reveals how much the result depends on your value priorities.</p>
+      <p><strong>Try changing the weights</strong> below to see how the rankings shift depending on what you care about most. For example, push the Ethics slider to 0.50 and watch which use cases rise and fall in the ranking – it reveals how much the result depends on your value priorities.</p>
       <p>Click the <strong>🏷️ Label</strong> button on any row for a full breakdown of why that AI system received its score.</p>
     </div>
     <div class="card">
@@ -577,13 +577,13 @@
         <div class="card-title" style="margin-bottom:0">Adjust Weights to Re-rank</div>
         <button class="reset-weights-btn" onclick="resetWeights('compare')">Reset defaults</button>
       </div>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Move any slider and the entire table re-ranks instantly. This demonstrates that our framework is transparent — you can see exactly how and why each AI system's rank changes based on different priorities.</p>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Move any slider and the entire table re-ranks instantly. This demonstrates that our framework is transparent – you can see exactly how and why each AI system's rank changes based on different priorities.</p>
       <div class="weights-grid" id="compare-weights"></div>
       <div class="weight-total">Total: <span id="compare-weight-total">1.00</span></div>
     </div>
 
     <div class="card">
-      <div class="card-title">Full Rankings — all 40 AI Use Cases</div>
+      <div class="card-title">Full Rankings – all 40 AI Use Cases</div>
       <div class="rank-table-wrap">
         <table class="rank-table">
           <thead><tr><th>#</th><th>Use Case</th><th>Score</th><th>Band</th><th>Purpose</th><th>Label</th></tr></thead>
@@ -594,8 +594,8 @@
 
     <!-- Score distribution -->
     <div class="card">
-      <div class="card-title">Score Distribution — How Spread Out Are the Scores?</div>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">Each bar represents a 5-point score band (e.g. 60–65). The height of the bar shows how many of the 40 AI systems fall into that band. A good framework should produce a spread-out distribution — if all scores were bunched together in the middle, the tool would not be discriminating enough to be useful.</p>
+      <div class="card-title">Score Distribution – How Spread Out Are the Scores?</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">Each bar represents a 5-point score band (e.g. 60–65). The height of the bar shows how many of the 40 AI systems fall into that band. A good framework should produce a spread-out distribution – if all scores were bunched together in the middle, the tool would not be discriminating enough to be useful.</p>
       <div class="dist-chart" id="compare-dist-chart"></div>
       <div class="dist-axis"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
     </div>
@@ -626,7 +626,7 @@
 
 <footer>
   <div class="container">
-    <p style="margin-bottom:4px">AI Misuse Evaluator · COMP3931 Individual Project · University of Leeds · 2024/25</p>
+    <p style="margin-bottom:4px">AI Misuse Evaluator · COMP3931 Individual Project · University of Leeds · 2025/26</p>
     <p>Built by Hasini Yahampath · <a href="https://github.com/hasini08/ai-misuse-evaluator" target="_blank">github.com/hasini08/ai-misuse-evaluator</a></p>
     <p style="margin-top:6px;opacity:0.5">Scores are computed from a five-dimensional responsibility framework. This is a research demonstration tool, not a definitive policy instrument.</p>
   </div>
@@ -805,10 +805,10 @@ function makeComponents(d, w) {
   ];
   const descs = {
     emissions: v => v >= 75 ? 'Favourable environmental profile relative to the dataset.' : v >= 40 ? 'Moderate environmental profile.' : 'Poor emissions performance relative to dataset.',
-    ethics: v => v >= 75 ? 'Comparatively low ethical risk.' : v >= 40 ? 'Moderate ethical risk.' : 'High ethical risk — strongly reduces justifiability.',
+    ethics: v => v >= 75 ? 'Comparatively low ethical risk.' : v >= 40 ? 'Moderate ethical risk.' : 'High ethical risk – strongly reduces justifiability.',
     creativity: v => v >= 75 ? 'Limited creative/labour displacement impact.' : v >= 40 ? 'Moderate displacement concerns.' : 'Substantial displacement of human creative work.',
-    purpose: v => v >= 90 ? 'Essential purpose — strongly supports deployment.' : v >= 75 ? 'Beneficial purpose.' : v >= 35 ? 'Low-benefit purpose weakens the case.' : 'Harmful purpose — strongly reduces justifiability.',
-    transparency: v => v >= 75 ? 'High transparency — outputs and logic are explainable.' : v >= 40 ? 'Moderate explainability.' : 'Low transparency — system is opaque and hard to audit.',
+    purpose: v => v >= 90 ? 'Essential purpose – strongly supports deployment.' : v >= 75 ? 'Beneficial purpose.' : v >= 35 ? 'Low-benefit purpose weakens the case.' : 'Harmful purpose – strongly reduces justifiability.',
+    transparency: v => v >= 75 ? 'High transparency – outputs and logic are explainable.' : v >= 40 ? 'Moderate explainability.' : 'Low transparency – system is opaque and hard to audit.',
   };
   return dims.map(dim => {
     const val = Math.round(d[`component_${dim.key}`]);
@@ -856,14 +856,14 @@ function makeResultExplainer(d, rank, total) {
   const gc = getGradeColor(d.justifiability_score);
   const grade = getGradeLetter(d.justifiability_score);
   const bandDesc = {
-    A: 'This is the highest possible grade. The AI system is strongly justifiable — it has a positive purpose, low risk, and responsible design.',
+    A: 'This is the highest possible grade. The AI system is strongly justifiable – it has a positive purpose, low risk, and responsible design.',
     B: 'A well-justified AI system. It performs well across most dimensions with only minor concerns.',
     C: 'A borderline result. The system has genuine value but also real concerns that should be addressed before widespread deployment.',
-    D: 'Poorly justified. The problems identified — whether ethical, environmental, or transparency-related — significantly outweigh the benefits.',
+    D: 'Poorly justified. The problems identified – whether ethical, environmental, or transparency-related – significantly outweigh the benefits.',
     E: 'Very difficult to justify. Serious harms or risks are present with very limited societal benefit.',
     F: 'Cannot be justified under this framework. The system causes more harm than good across multiple dimensions.',
   };
-  const rankNote = rank && total ? ` Out of the ${total} AI systems in our dataset, it ranks <strong style="color:${gc}">#${rank}</strong> — placing it in the ${rank <= total*0.25 ? 'top 25%' : rank <= total*0.5 ? 'top half' : rank <= total*0.75 ? 'bottom half' : 'bottom 25%'}.` : '';
+  const rankNote = rank && total ? ` Out of the ${total} AI systems in our dataset, it ranks <strong style="color:${gc}">#${rank}</strong> – placing it in the ${rank <= total*0.25 ? 'top 25%' : rank <= total*0.5 ? 'top half' : rank <= total*0.75 ? 'bottom half' : 'bottom 25%'}.` : '';
   return `<div class="explainer-title">What does this score mean?</div>
     <p>
       <strong style="color:${gc}">${humanise(d.use_case_name)}</strong> received a score of
@@ -1136,7 +1136,7 @@ function buildModalBreakdown(d) {
         ? `Low ethical risk. The system poses limited risk of harm, bias, or rights violations. This is the single most influential dimension in the framework — a low risk score here is a strong positive signal.`
         : v >= 40
         ? `Moderate ethical risk. Some concerns are present — these may include potential bias in outputs, risks to privacy, or use in contexts with power imbalances. Mitigation strategies and impact assessments are advisable.`
-        : `High ethical risk — the strongest negative driver in this score. A raw risk rating of ${d.ethical_risk_score}/5 indicates serious potential for harm, bias, or rights violations. This dimension contributes the most to reducing justifiability.`
+        : `High ethical risk – the strongest negative driver in this score. A raw risk rating of ${d.ethical_risk_score}/5 indicates serious potential for harm, bias, or rights violations. This dimension contributes the most to reducing justifiability.`
     },
     {
       icon:'🎨', lbl:'Creative Displacement', key:'component_creativity',
@@ -1155,12 +1155,12 @@ function buildModalBreakdown(d) {
       normNote:'Mapped to a fixed goodness weight: Essential → 1.00, Beneficial → 0.80, Low Benefit → 0.40, Harmful → 0.00. Carries 10% weight in the weighted sum, but triggers the non-compensatory guardrail (×0.60, ×0.42 if ethics ≥ 4) for harmful cases.',
       weightKey:'purpose',
       longNote: v => v >= 90
-        ? `Essential purpose — the highest purpose classification. This AI system addresses a fundamental societal need (healthcare, safety, accessibility, infrastructure) where the benefits are clear, widely distributed, and not easily achieved without AI. Purpose score: 100/100.`
+        ? `Essential purpose – the highest purpose classification. This AI system addresses a fundamental societal need (healthcare, safety, accessibility, infrastructure) where the benefits are clear, widely distributed, and not easily achieved without AI. Purpose score: 100/100.`
         : v >= 75
         ? `Beneficial purpose. The system provides genuine value to its users and society, though it is not strictly essential. Benefits are real but more incremental than transformative. Purpose score: 80/100.`
         : v >= 35
-        ? `Low-benefit purpose. The system's value proposition is marginal — it may offer convenience or entertainment but does not address a significant need. Purpose score: 40/100.`
-        : `Harmful purpose — purpose score 0/100. Additionally, the non-compensatory guardrail reduces the final score by ×0.60 (or ×0.42 if ethical risk ≥ 4), ensuring that high scores on other dimensions cannot offset a fundamentally unjustifiable purpose.`
+        ? `Low-benefit purpose. The system's value proposition is marginal – it may offer convenience or entertainment but does not address a significant need. Purpose score: 40/100.`
+        : `Harmful purpose – purpose score 0/100. Additionally, the non-compensatory guardrail reduces the final score by ×0.60 (or ×0.42 if ethical risk ≥ 4), ensuring that high scores on other dimensions cannot offset a fundamentally unjustifiable purpose.`
     },
     {
       icon:'🔍', lbl:'Transparency & Explainability', key:'component_transparency',
@@ -1171,7 +1171,7 @@ function buildModalBreakdown(d) {
         ? `High transparency. The system's outputs and decision logic are auditable, explainable to end users, and aligned with EU AI Act transparency obligations (Article 13). Systems at this level are most compatible with regulatory compliance and public trust.`
         : v >= 40
         ? `Moderate explainability. Some explanation of outputs is available, but the system may not fully satisfy regulatory transparency requirements or the needs of affected individuals. Improvements (e.g., SHAP explanations, decision audit trails) would raise this score.`
-        : `Low transparency — the system is opaque and difficult to audit or challenge. A raw score of ${d.transparency_score}/5 indicates limited explainability, which reduces public trust and complicates regulatory compliance. This is a significant concern under the EU AI Act for high-risk applications.`
+        : `Low transparency – the system is opaque and difficult to audit or challenge. A raw score of ${d.transparency_score}/5 indicates limited explainability, which reduces public trust and complicates regulatory compliance. This is a significant concern under the EU AI Act for high-risk applications.`
     },
   ];
 
@@ -1221,7 +1221,7 @@ function buildModalBreakdown(d) {
     ${header}
     ${guardrail}
     <div style="font-size:10px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">
-      Component Breakdown — click any row to expand
+      Component Breakdown – click any row to expand
     </div>
     ${dimHtml}
     <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);font-size:10px;color:var(--muted);line-height:1.7">
@@ -1503,7 +1503,7 @@ function renderScienceTab() {
   el.innerHTML = `
 
     <!-- ════════════════════════════════════════════════════
-         HERO — animated counters
+         HERO – animated counters
     ════════════════════════════════════════════════════ -->
     <div class="sci-section" style="background:linear-gradient(135deg,rgba(0,180,160,0.10) 0%,rgba(19,34,54,0.96) 100%);border-color:rgba(0,180,160,0.3);text-align:center;padding-bottom:28px">
       <div style="font-size:13px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:20px">By the numbers</div>
@@ -1526,15 +1526,15 @@ function renderScienceTab() {
         </div>
       </div>
       <div style="font-size:12px;color:rgba(248,249,250,0.65);max-width:520px;margin:0 auto;line-height:1.7">
-        This isn't just a score calculator — it's backed by a full academic study. Every number above represents a concrete piece of evidence that the framework is trustworthy. Scroll down to see the proof behind each one.
+        This isn't just a score calculator – it's backed by a full academic study. Every number above represents a concrete piece of evidence that the framework is trustworthy. Scroll down to see the proof behind each one.
       </div>
     </div>
 
     <!-- ════════════════════════════════════════════════════
-         3-STEP STORY — how we built it
+         3-STEP STORY – how we built it
     ════════════════════════════════════════════════════ -->
     <div class="sci-section" style="padding-bottom:24px">
-      <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:16px">How we built it — 3 phases</div>
+      <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:16px">How we built it – 3 phases</div>
       <div class="step-row">
         <div class="step-card">
           <div class="step-num">🧮</div>
@@ -1543,23 +1543,23 @@ function renderScienceTab() {
         </div>
         <div class="step-card">
           <div class="step-num">🔨</div>
-          <div class="step-title">Phase 2 — Stress-test it</div>
+          <div class="step-title">Phase 2 – Stress-test it</div>
           <div class="step-body">Ran 300 Monte Carlo simulations with random weights, a full sensitivity analysis varying the emissions weight from 0% to 100%, and five different weight configurations to check that rankings stay stable regardless of how you tweak the numbers.</div>
         </div>
         <div class="step-card">
           <div class="step-num">✅</div>
-          <div class="step-title">Phase 3 — Prove it works</div>
+          <div class="step-title">Phase 3 – Prove it works</div>
           <div class="step-body">Validated against 15 hand-labelled ground-truth cases (87% accuracy), ran inter-rater reliability with independent human scorers (κ = 0.955), and wrote 66 automated unit tests covering every edge case in the scoring engine.</div>
         </div>
       </div>
     </div>
 
     <!-- ════════════════════════════════════════════════════
-         THE FORMULA — interactive animated weight bars
+         THE FORMULA – interactive animated weight bars
     ════════════════════════════════════════════════════ -->
     <div class="sci-section">
-      <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:4px">The scoring formula — click any dimension to learn more</div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6">Each bar shows how much that dimension contributes to the final score (default weights). Bars animate in — click a row to expand the reasoning behind each weight.</div>
+      <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:4px">The scoring formula – click any dimension to learn more</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6">Each bar shows how much that dimension contributes to the final score (default weights). Bars animate in – click a row to expand the reasoning behind each weight.</div>
 
       <!-- Emissions 35% -->
       <div class="dim-row" onclick="toggleDim('em')">
@@ -1581,7 +1581,7 @@ function renderScienceTab() {
         <div class="dim-row-arrow">▶</div>
       </div>
       <div class="dim-detail" id="dim-detail-eth"><div class="dim-detail-inner">
-        <strong>Why 25%?</strong> Ethical risk captures direct human harm — bias, privacy violation, manipulation, exploitation. It has the strongest statistical correlation with the final score (Pearson r = −0.881). A non-compensatory guardrail means that if a use case is explicitly harmful <em>and</em> scores ≥ 4 on ethical risk, a ×0.42 penalty is applied — some harms can never be "cancelled out" by good emissions or transparency.
+        <strong>Why 25%?</strong> Ethical risk captures direct human harm – bias, privacy violation, manipulation, exploitation. It has the strongest statistical correlation with the final score (Pearson r = −0.881). A non-compensatory guardrail means that if a use case is explicitly harmful <em>and</em> scores ≥ 4 on ethical risk, a ×0.42 penalty is applied – some harms can never be "cancelled out" by good emissions or transparency.
       </div></div>
 
       <div class="dim-row" onclick="toggleDim('tr')">
@@ -1623,10 +1623,10 @@ function renderScienceTab() {
     </div>
 
     <!-- ════════════════════════════════════════════════════
-         PROOF CARDS — 4 expandable evidence cards
+         PROOF CARDS – 4 expandable evidence cards
     ════════════════════════════════════════════════════ -->
     <div class="sci-section">
-      <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:4px">Evidence it works — click any card to expand</div>
+      <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:4px">Evidence it works – click any card to expand</div>
       <div style="font-size:12px;color:var(--muted);margin-bottom:18px;line-height:1.6">Four independent tests were run to verify the framework is accurate, consistent, and not biased by the weight choices.</div>
 
       <!-- Card 1: Face Validity -->
@@ -1646,9 +1646,9 @@ function renderScienceTab() {
         </div>
         <div class="proof-body" id="proof-body-1">
           <p style="margin:0 0 10px">We hand-labelled 15 AI use cases with expected outcomes (High / Medium / Low justifiability) before running the framework, then checked whether the algorithm matched. It correctly classified <strong>13 out of 15</strong>.</p>
-          <p style="margin:0 0 10px">The two misclassified cases both sat near the Medium/High boundary — they were genuinely ambiguous even to the human labellers. A majority-class baseline would achieve only 47%, and a random classifier 33%, so 87% represents a substantial improvement.</p>
+          <p style="margin:0 0 10px">The two misclassified cases both sat near the Medium/High boundary – they were genuinely ambiguous even to the human labellers. A majority-class baseline would achieve only 47%, and a random classifier 33%, so 87% represents a substantial improvement.</p>
           <div style="background:rgba(0,180,160,0.07);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--muted)">
-            ✅ <strong style="color:rgba(248,249,250,0.8)">What this proves:</strong> The framework isn't just producing arbitrary numbers — its outputs align with what a knowledgeable person would say about each AI use case.
+            ✅ <strong style="color:rgba(248,249,250,0.8)">What this proves:</strong> The framework isn't just producing arbitrary numbers – its outputs align with what a knowledgeable person would say about each AI use case.
           </div>
         </div>
       </div>
@@ -1670,7 +1670,7 @@ function renderScienceTab() {
         </div>
         <div class="proof-body" id="proof-body-2">
           <p style="margin:0 0 10px"><strong>Monte Carlo test:</strong> 300 completely random weight combinations were generated (using Dirichlet sampling, so weights always sum to 1). All 40 use cases were rescored under each combination. The same top-ranked use cases (Accessibility Captioning, Earthquake Early Warning) dominated across all 300 trials.</p>
-          <p style="margin:0 0 10px"><strong>Sensitivity analysis:</strong> The emissions weight was swept from 0% to 100% while the remaining weights adjusted proportionally. The Spearman rank correlation between any two configurations was ≥ 0.986 — near-perfect rank agreement even under extreme weight changes.</p>
+          <p style="margin:0 0 10px"><strong>Sensitivity analysis:</strong> The emissions weight was swept from 0% to 100% while the remaining weights adjusted proportionally. The Spearman rank correlation between any two configurations was ≥ 0.986 – near-perfect rank agreement even under extreme weight changes.</p>
           <div style="background:rgba(0,180,160,0.07);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--muted)">
             ✅ <strong style="color:rgba(248,249,250,0.8)">What this proves:</strong> Results are not an artefact of whoever chose the default weights. Even if someone increased the emissions weight 3× or emphasised ethics above everything else, the winners and losers barely change. This property is called <em>rank stability</em>.
           </div>
@@ -1697,7 +1697,7 @@ function renderScienceTab() {
           <div class="proof-chevron">▼</div>
         </div>
         <div class="proof-body" id="proof-body-3">
-          <p style="margin:0 0 10px">Two participants independently scored 12 AI use cases using the same rating scales, without any coordination. Agreement was measured using <strong>Cohen's weighted kappa (κ)</strong> — a stricter metric than simple percentage agreement because it accounts for chance agreement.</p>
+          <p style="margin:0 0 10px">Two participants independently scored 12 AI use cases using the same rating scales, without any coordination. Agreement was measured using <strong>Cohen's weighted kappa (κ)</strong> – a stricter metric than simple percentage agreement because it accounts for chance agreement.</p>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
             <div style="background:rgba(0,180,160,0.08);border-radius:8px;padding:12px;text-align:center">
               <div style="font-family:var(--font-display);font-size:1.8rem;color:var(--teal)">0.33</div>
@@ -1710,7 +1710,7 @@ function renderScienceTab() {
           </div>
           <p style="margin:0 0 8px;font-size:11px;color:var(--muted)">Interpretation scale: κ &lt; 0.2 = slight · 0.2–0.4 = fair · 0.4–0.6 = moderate · 0.6–0.8 = substantial · &gt; 0.8 = almost perfect (Landis &amp; Koch, 1977)</p>
           <div style="background:rgba(0,180,160,0.07);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--muted)">
-            ✅ <strong style="color:rgba(248,249,250,0.8)">What this proves:</strong> Ordinary people — not just AI specialists — can apply the rating scales consistently. The framework doesn't require expert training to produce reliable inputs, which is essential for a general-purpose tool.
+            ✅ <strong style="color:rgba(248,249,250,0.8)">What this proves:</strong> Ordinary people – not just AI specialists – can apply the rating scales consistently. The framework doesn't require expert training to produce reliable inputs, which is essential for a general-purpose tool.
           </div>
         </div>
       </div>
@@ -1737,7 +1737,7 @@ function renderScienceTab() {
           ${hbar('Creative displacement (r = −0.488 ***)', 48.8, 100, 'var(--amber)')}
           ${hbar('Carbon emissions (r = −0.192, n.s.)', 19.2, 100, 'var(--teal)')}
           <div style="font-size:11px;color:var(--muted);margin:8px 0 12px;line-height:1.6">Bar = |r| value. *** = significant at p &lt; 0.001. n.s. = not statistically significant (p = 0.229)</div>
-          <p style="margin:0 0 8px">Emissions correlation is not significant partly because of <em>log-clipping normalisation</em> — most use cases cluster into a similar normalised range, reducing the raw variation. The ethical risk and transparency correlations are both highly significant (p &lt; 0.001).</p>
+          <p style="margin:0 0 8px">Emissions correlation is not significant partly because of <em>log-clipping normalisation</em> – most use cases cluster into a similar normalised range, reducing the raw variation. The ethical risk and transparency correlations are both highly significant (p &lt; 0.001).</p>
           <div style="background:rgba(0,180,160,0.07);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--muted)">
             ✅ <strong style="color:rgba(248,249,250,0.8)">What this proves:</strong> The framework correctly prioritises the dimensions that matter most. Ethical risk being the strongest predictor aligns with the design intent: no amount of good environmental credentials should make a harmful AI acceptable.
           </div>
@@ -1746,7 +1746,7 @@ function renderScienceTab() {
     </div>
 
     <!-- ════════════════════════════════════════════════════
-         DISTRIBUTION + TOP/BOTTOM — side by side
+         DISTRIBUTION + TOP/BOTTOM – side by side
     ════════════════════════════════════════════════════ -->
     <div class="sci-two-col">
       <div class="sci-section" style="margin-bottom:0">
@@ -1772,7 +1772,7 @@ function renderScienceTab() {
 
       <div class="sci-section" style="margin-bottom:0">
         <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:4px">Highest and lowest scoring use cases</div>
-        <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">A quick "gut check" — medical and safety AI at the top, surveillance and exploitation AI at the bottom is exactly what we'd expect.</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">A quick "gut check" – medical and safety AI at the top, surveillance and exploitation AI at the bottom is exactly what we'd expect.</div>
         <div style="font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">🏆 Top 5 most justifiable</div>
         ${top5.map((r,i)=>`
           <div class="sci-hbar-row">
@@ -1798,13 +1798,13 @@ function renderScienceTab() {
          SENSITIVITY CHART
     ════════════════════════════════════════════════════ -->
     <div class="sci-section" style="margin-top:20px">
-      <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:4px">Sensitivity analysis — what if we change the emissions weight?</div>
+      <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:4px">Sensitivity analysis – what if we change the emissions weight?</div>
       <div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">The emissions weight was varied from 0% (completely ignored) to 100% (the only thing that matters). The line shows how the average score across all 40 use cases changes. A flat line = the framework is not overly sensitive to this choice.</div>
       ${svgLineChart(sens)}
       <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:4px;margin-bottom:14px"><span>← Emissions = 0 (ignored)</span><span>Emissions = 1.0 (only factor) →</span></div>
       <div class="sci-insight">
         <div class="sci-insight-lbl">💡 Stable in the middle, as expected</div>
-        <div class="sci-insight-text">The curve is flat across the central range — the default 35% sits comfortably in the stable zone. Only at extreme settings (0% or 100%) does the average shift noticeably, which is expected and intentional. Rank stability across configurations: Spearman ρ ≥ 0.986.</div>
+        <div class="sci-insight-text">The curve is flat across the central range – the default 35% sits comfortably in the stable zone. Only at extreme settings (0% or 100%) does the average shift noticeably, which is expected and intentional. Rank stability across configurations: Spearman ρ ≥ 0.986.</div>
       </div>
     </div>`;
 }
