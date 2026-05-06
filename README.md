@@ -116,7 +116,7 @@ An inter-rater reliability study was conducted across 8 complete use cases with 
 | Krippendorff's α (ordinal) | 0.442 | 0.481 |
 | Best pairwise κ | 0.739 (substantial) | 0.535 (moderate) |
 | n raters | 4 | 4 |
-| n use cases | 8 | 8 |
+| n use cases | 12 | 12|
 
 Fair agreement across uncalibrated raters from diverse disciplines is interpretable. Disagreement concentrated on genuinely contested cases (AI_Art_Generator, Medical_Triage_Assistant), while all four raters unanimously assigned maximum ethical risk to Nonconsensual_Deepfake_Generator. Lower α values reflect genuine societal disagreement across disciplinary backgrounds rather than scale failure; calibration anchors would likely improve consistency in future deployments.
 
