@@ -45,11 +45,11 @@ Scores are classified into three bands:
 
 | Band | Score range | Interpretation |
 |---|---|---|
-| High | 71–100 | Justifiable deployment |
-| Medium | 41–70 | Borderline — requires scrutiny |
-| Low | 0–40 | Difficult to justify |
+| High | 70–100 | Justifiable deployment |
+| Medium | 40–69 | Borderline — requires scrutiny |
+| Low | 0–39 | Difficult to justify |
 
-> **Non-compensatory guardrail:** Use cases with `purpose_category = harmful` receive a 0.60× penalty. Those that also have `ethical_risk_score ≥ 4` receive a further 0.70× penalty (combined multiplier = 0.42), reflecting the design principle that explicitly harmful intent is disqualifying regardless of other properties.
+> **Non-compensatory guardrail:** Use cases with `purpose_category = harmful` receive a 0.60× penalty. Those that also have `ethical_risk_score ≥ 4` receive a further 0.70× multiplier (combined = 0.42), reflecting the design principle that explicitly harmful intent is disqualifying regardless of other properties.
 
 ---
 
@@ -108,12 +108,17 @@ pytest tests/ -v
 
 ### Inter-rater reliability
 
-A two-rater inter-rater reliability study was conducted across 12 use cases using a bespoke HTML scoring instrument:
+An inter-rater reliability study was conducted across 8 complete use cases with four raters (author + three external non-experts from law, medicine, and computer science), with no calibration training provided.
 
-| Dimension | Cohen's weighted κ | Interpretation |
+| Metric | Ethical Risk | Transparency |
 |---|---|---|
-| Ethical risk | 0.955 | Almost perfect |
-| Transparency | 0.720 | Substantial |
+| Mean pairwise Cohen's weighted κ | 0.334 (fair) | 0.346 (fair) |
+| Krippendorff's α (ordinal) | 0.442 | 0.481 |
+| Best pairwise κ | 0.739 (substantial) | 0.535 (moderate) |
+| n raters | 4 | 4 |
+| n use cases | 8 | 8 |
+
+Fair agreement across uncalibrated raters from diverse disciplines is interpretable. Disagreement concentrated on genuinely contested cases (AI_Art_Generator, Medical_Triage_Assistant), while all four raters unanimously assigned maximum ethical risk to Nonconsensual_Deepfake_Generator. Lower α values reflect genuine societal disagreement across disciplinary backgrounds rather than scale failure; calibration anchors would likely improve consistency in future deployments.
 
 ### Robustness
 
@@ -131,38 +136,73 @@ A two-rater inter-rater reliability study was conducted across 12 use cases usin
 
 ```
 ai-misuse-evaluator/
+├── .github/
+│   └── workflows/
+│       └── tests.yml                    # CI: runs pytest on Python 3.11 and 3.12
 ├── src/
-│   ├── scoring_engine.py          # Core 5D scoring logic — compute_scores()
-│   ├── run_pipeline.py            # Pipeline orchestration and CLI
-│   ├── visualise.py               # Figure generation (6 figures)
-│   └── emissions_measurement.py   # CodeCarbon integration
+│   ├── __init__.py
+│   ├── scoring_engine.py                # Core 5D scoring logic — compute_scores()
+│   ├── run_pipeline.py                  # Pipeline orchestration and CLI
+│   ├── visualise.py                     # Figure generation (8 figures)
+│   └── emissions_measurement.py         # CodeCarbon integration
 ├── tests/
-│   ├── test_scoring_engine.py     # 38 unit tests (structure, components, edge cases)
-│   ├── test_transparency.py       # 15 transparency dimension tests
-│   ├── test_face_validity.py      # Ground truth validation (15 labelled cases)
-│   ├── test_baseline.py           # Baseline comparison tests
-│   └── test_sanity.py             # Sanity checks
+│   ├── __init__.py
+│   ├── test_scoring_engine.py           # 38 unit tests (structure, components, edge cases)
+│   ├── test_transparency.py             # 15 transparency dimension tests
+│   ├── test_face_validity.py            # Ground truth validation (15 labelled cases)
+│   ├── test_baseline.py                 # Baseline comparison tests
+│   └── test_sanity.py                   # Sanity checks
 ├── data/
-│   ├── usecases.csv               # Input dataset (40 use cases, 5 dimensions)
-│   ├── results_scored.csv         # Scored output with component breakdown
-│   ├── analysis_summary.txt       # Human-readable analysis report
-│   ├── sensitivity_results.csv    # Sensitivity experiment results
-│   ├── pareto_frontier.csv        # Pareto-optimal use cases
-│   ├── montecarlo_stability.csv   # Monte Carlo win rates
-│   ├── ablation_results.csv       # Leave-one-dimension-out results
-│   └── rater_1.csv                # Inter-rater reliability data
-├── figures/                       # Generated visualisations
-│   ├── score_bar.png
-│   ├── score_distribution.png
-│   ├── correlation_matrix.png
-│   ├── sensitivity_weights.png
-│   ├── montecarlo_top10.png
-│   └── pareto_emissions_vs_ethics.png
-├── inter_rater_scoring_sheet.html # HTML scoring instrument for inter-rater study
-├── inter_rater_analysis.py        # Cohen's kappa computation
-├── index.html                     # Interactive web interface
+│   ├── usecases.csv                     # Input dataset (40 use cases, 5 dimensions)
+│   ├── results_scored.csv               # Scored output with full component breakdown
+│   ├── results_scored.json              # Same scored output in JSON format
+│   ├── analysis_summary.txt             # Human-readable analysis report
+│   ├── sensitivity_results.csv          # Sensitivity experiment results
+│   ├── threshold_sensitivity.csv        # Band threshold sensitivity results
+│   ├── pareto_frontier.csv              # Pareto-optimal use cases
+│   ├── montecarlo_stability.csv         # Monte Carlo win rates
+│   ├── ablation_results.csv             # Leave-one-dimension-out results
+│   └── emissions_measured.csv           # Actual emissions measured via CodeCarbon
+├── figures/
+│   ├── score_top_bottom.png             # Top and bottom 10 use cases by score
+│   ├── score_distribution.png           # Score distribution across all 40 use cases
+│   ├── correlation_matrix.png           # Pearson correlation heatmap
+│   ├── sensitivity_weights.png          # Rank stability under weight variation
+│   ├── montecarlo_top10.png             # Monte Carlo win rates for top 10 use cases
+│   ├── pareto_emissions_vs_ethics.png   # Pareto frontier plot
+│   ├── component_breakdown_by_category.png  # Component scores grouped by purpose
+│   └── transparency_distribution.png   # Transparency score distribution
+├── app.py                               # Flask application (local web server)
+├── index.html                           # Interactive web interface (GitHub Pages)
+├── inter_rater_analysis.py              # Cohen's kappa / Krippendorff's α computation
+├── inter_rater_scoring_sheet.html       # HTML scoring instrument used by raters
+├── emissions.csv                        # CodeCarbon runtime emissions log
+├── emissions.csv_0.bak                  # Earlier emissions log backup
+├── emissions.csv.bak                    # Earlier emissions log backup
 └── requirements.txt
 ```
+
+### Key files explained
+
+**`src/scoring_engine.py`** — the core of the project. Contains `compute_scores()`, which accepts a DataFrame and optional weight parameters, normalises each of the five dimensions, applies the non-compensatory guardrail for harmful use cases, and returns the scored DataFrame with component breakdown and band labels.
+
+**`src/run_pipeline.py`** — CLI entry point that orchestrates the full evaluation pipeline. Runs scoring, generates figures, and optionally executes sensitivity, Monte Carlo, ablation, and threshold experiments depending on the flags passed.
+
+**`src/visualise.py`** — generates all 8 figures saved to the `figures/` directory, including the component breakdown heatmap, correlation matrix, sensitivity weight plots, and Monte Carlo win-rate bar chart.
+
+**`src/emissions_measurement.py`** — wraps [CodeCarbon](https://github.com/mlco2/codecarbon) to measure the actual CO₂ emissions produced when running the pipeline. The live output is written to `emissions.csv` at the root; the archived version used for analysis is `data/emissions_measured.csv`.
+
+**`app.py`** — Flask application that serves the evaluator as a local web server, allowing users to input a use case and receive a Justifiability Score interactively without using the CLI.
+
+**`index.html`** — the static interactive web interface deployed to GitHub Pages. Lets users score a custom AI use case directly in the browser with no Python required.
+
+**`inter_rater_analysis.py`** — computes Cohen's weighted kappa (pairwise) and Krippendorff's alpha (ordinal) from the rater data files. Run this directly from the root to reproduce the inter-rater reliability results reported in the dissertation.
+
+**`inter_rater_scoring_sheet.html`** — a self-contained HTML form used during the inter-rater reliability study. Raters opened this file in a browser and independently scored 8 AI use cases across the ethical risk and transparency dimensions using 1–5 radio buttons.
+
+**`emissions.csv` / `emissions.csv_0.bak` / `emissions.csv.bak`** — runtime output files created automatically by CodeCarbon each time the pipeline runs. The `.bak` files are earlier snapshots retained for reproducibility. These are generated locally and not required to reproduce results — the analysis version is `data/emissions_measured.csv`.
+
+**`.github/workflows/tests.yml`** — GitHub Actions CI configuration. On every push or pull request to `main`/`master`, it installs dependencies and runs the full pytest suite across Python 3.11 and 3.12. The badge at the top of this README reflects the live CI status.
 
 ---
 
@@ -202,6 +242,18 @@ python src/run_pipeline.py --analyze --sensitivity --pareto --montecarlo --ablat
 
 ```bash
 pytest tests/ -v
+```
+
+### Run inter-rater reliability analysis
+
+```bash
+python inter_rater_analysis.py
+```
+
+### Run the local web interface
+
+```bash
+python app.py
 ```
 
 ### Custom weights
